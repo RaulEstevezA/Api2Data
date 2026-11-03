@@ -13,8 +13,8 @@ Test cases that define the expected behavior of the core. The Vitest suite (`web
 In the files, a missing key is `undefined` and `null` is `null`. A few functions are called through a small wrapper, the same in both suites:
 
 - Functions that create rows receive ids `id-1`, `id-2`… starting again on every call.
-- `process.processResponse` receives the body as text instead of bytes, and its result leaves the bytes out.
-- `viewers.isBinary` receives the bytes as a list of numbers.
+- `process.processResponse` receives the body as text (or as a list of bytes when it is not UTF-8), and its result leaves the bytes out.
+- `viewers.isBinary` and `contentType.sniffCharset` receive the bytes as a list of numbers.
 - `requestFile.createRequestFile` receives the date as ISO text.
 - `codegen.generate` receives the target id and the prepared request.
 

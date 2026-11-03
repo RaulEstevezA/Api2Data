@@ -1,5 +1,5 @@
 import type { HttpResponse } from '../http/types.ts'
-import { decodeBody, headerValue, parseContentType, type ContentType } from './contentType.ts'
+import { decodeBody, headerValue, parseContentType, sniffCharset, type ContentType } from './contentType.ts'
 import { reasonPhrase, statusClass, type StatusClass } from './status.ts'
 import { isBinary, viewText, type TextView } from './viewers.ts'
 
@@ -35,7 +35,9 @@ export function processResponse(response: HttpResponse): ProcessedResponse {
   const contentType = parseContentType(headerValue(response.headers, 'content-type'))
   const reason = reasonPhrase(response.status, response.statusText)
   // Pasted text was decoded by the terminal and stored as UTF-8, whatever charset the server declared
-  const body = bodyOf(response.bytes, contentType, response.origin === 'pasted' ? 'utf-8' : (contentType?.charset ?? null))
+  const charset =
+    response.origin === 'pasted' ? 'utf-8' : (contentType?.charset ?? sniffCharset(response.bytes, contentType?.mediaType ?? null))
+  const body = bodyOf(response.bytes, contentType, charset)
   const statusLine = `HTTP ${response.status}${reason ? ` ${reason}` : ''}`
   const headerLines = response.headers.map(([name, value]) => `${name}: ${value}`)
   const rawBody = body.kind === 'text' ? body.view.raw : ''

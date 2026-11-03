@@ -3,7 +3,7 @@
 An HTTP response is {"status", "statusText", "url", "redirected", "headers": [[name, value]], "bytes",
 "durationMs" (None when not measured), "origin": "sent" or "pasted"}."""
 
-from .content_type import decode_body, header_value, parse_content_type
+from .content_type import decode_body, header_value, parse_content_type, sniff_charset
 from .status import reason_phrase, status_class
 from .viewers import is_binary, view_text
 
@@ -21,7 +21,12 @@ def process_response(response: dict) -> dict:
     content_type = parse_content_type(header_value(response["headers"], "content-type"))
     reason = reason_phrase(response["status"], response["statusText"])
     # Pasted text was decoded by the terminal and stored as UTF-8, whatever charset the server declared
-    charset = "utf-8" if response["origin"] == "pasted" else (content_type["charset"] if content_type else None)
+    if response["origin"] == "pasted":
+        charset = "utf-8"
+    elif content_type and content_type["charset"]:
+        charset = content_type["charset"]
+    else:
+        charset = sniff_charset(response["bytes"], content_type["mediaType"] if content_type else None)
     body = _body_of(response["bytes"], content_type, charset)
     status_line = f"HTTP {response['status']}{' ' + reason if reason else ''}"
     header_lines = [f"{name}: {value}" for name, value in response["headers"]]

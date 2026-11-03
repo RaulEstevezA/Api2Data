@@ -23,7 +23,7 @@ import { readDraft, toStoredDraft } from './request/draftFormat.ts'
 import { isForbiddenHeader, isValidHeaderName, isValidHeaderValue } from './request/headers.ts'
 import { hasCredentials, isSensitiveName, redactDraft } from './request/redact.ts'
 import { appendQuery, encodeQueryPart, paramsFromUrl, parseQuery, resolveUrl, splitUrl, urlWithParams } from './request/url.ts'
-import { parseContentType } from './response/contentType.ts'
+import { parseContentType, sniffCharset } from './response/contentType.ts'
 import { processResponse } from './response/process.ts'
 import { reasonPhrase, statusClass } from './response/status.ts'
 import { isBinary, viewText } from './response/viewers.ts'
@@ -42,9 +42,12 @@ const ids = () => {
   return () => `id-${++next}`
 }
 
-/** A response as stored in the files: the body as text instead of bytes. */
-type StoredResponse = Omit<HttpResponse, 'bytes'> & { body: string }
-const toResponse = ({ body, ...rest }: StoredResponse): HttpResponse => ({ ...rest, bytes: new TextEncoder().encode(body) })
+/** A response as stored in the files: the body as text, or as a list of bytes when it is not UTF-8. */
+type StoredResponse = Omit<HttpResponse, 'bytes'> & { body: string | number[] }
+const toResponse = ({ body, ...rest }: StoredResponse): HttpResponse => ({
+  ...rest,
+  bytes: typeof body === 'string' ? new TextEncoder().encode(body) : new Uint8Array(body),
+})
 
 const FUNCTIONS: Record<string, AnyFunction> = {
   'url.splitUrl': splitUrl,
@@ -71,6 +74,7 @@ const FUNCTIONS: Record<string, AnyFunction> = {
   'pretty.prettyJson': prettyJson,
   'xml.prettyXml': prettyXml,
   'contentType.parseContentType': parseContentType,
+  'contentType.sniffCharset': (bytes: number[], mediaType: string | null) => sniffCharset(new Uint8Array(bytes), mediaType),
   'status.reasonPhrase': reasonPhrase,
   'status.statusClass': statusClass,
   'viewers.viewText': viewText,

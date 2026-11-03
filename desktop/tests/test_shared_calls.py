@@ -33,13 +33,16 @@ def wrapped(name: str):
         return lambda mode, config: function(mode).serialize(config)
     if name == "body.validate":
         return lambda mode, config: function(mode).validate(config)
+    if name == "contentType.sniffCharset":
+        return lambda data, media_type: function(bytes(data), media_type)
     if name == "viewers.isBinary":
         return lambda media_type, data: function(media_type, bytes(data))
     if name == "process.processResponse":
 
         def process(stored):
             response = {key: value for key, value in stored.items() if key != "body"}
-            response["bytes"] = stored["body"].encode("utf-8")
+            body = stored["body"]
+            response["bytes"] = body.encode("utf-8") if isinstance(body, str) else bytes(body)
             return {key: value for key, value in function(response).items() if key != "bytes"}
 
         return process
@@ -76,6 +79,7 @@ FUNCTIONS = {
     "pretty.prettyJson": "json.pretty.pretty_json",
     "xml.prettyXml": "response.xml.pretty_xml",
     "contentType.parseContentType": "response.content_type.parse_content_type",
+    "contentType.sniffCharset": "response.content_type.sniff_charset",
     "status.reasonPhrase": "response.status.reason_phrase",
     "status.statusClass": "response.status.status_class",
     "viewers.viewText": "response.viewers.view_text",

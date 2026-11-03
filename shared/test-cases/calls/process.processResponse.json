@@ -175,5 +175,215 @@
    },
    "raw": "HTTP 200 OK\ncontent-type: application/xml\n\n<a><b>Ñ</b></a>"
   }
+ },
+ {
+  "args": [
+   {
+    "status": 200,
+    "statusText": "OK",
+    "url": "https://www.aemet.es/xml/municipios/localidad_28079.xml",
+    "redirected": false,
+    "headers": [
+     [
+      "content-type",
+      "application/xml"
+     ]
+    ],
+    "body": [
+     60,
+     63,
+     120,
+     109,
+     108,
+     32,
+     118,
+     101,
+     114,
+     115,
+     105,
+     111,
+     110,
+     61,
+     39,
+     49,
+     46,
+     48,
+     39,
+     32,
+     101,
+     110,
+     99,
+     111,
+     100,
+     105,
+     110,
+     103,
+     61,
+     39,
+     73,
+     83,
+     79,
+     45,
+     56,
+     56,
+     53,
+     57,
+     45,
+     49,
+     53,
+     39,
+     63,
+     62,
+     60,
+     114,
+     111,
+     111,
+     116,
+     62,
+     60,
+     112,
+     114,
+     111,
+     100,
+     117,
+     99,
+     116,
+     111,
+     114,
+     62,
+     65,
+     103,
+     101,
+     110,
+     99,
+     105,
+     97,
+     32,
+     69,
+     115,
+     116,
+     97,
+     116,
+     97,
+     108,
+     32,
+     100,
+     101,
+     32,
+     77,
+     101,
+     116,
+     101,
+     111,
+     114,
+     111,
+     108,
+     111,
+     103,
+     237,
+     97,
+     60,
+     47,
+     112,
+     114,
+     111,
+     100,
+     117,
+     99,
+     116,
+     111,
+     114,
+     62,
+     60,
+     47,
+     114,
+     111,
+     111,
+     116,
+     62
+    ],
+    "durationMs": 64,
+    "origin": "sent"
+   }
+  ],
+  "result": {
+   "status": 200,
+   "reason": "OK",
+   "statusClass": "success",
+   "url": "https://www.aemet.es/xml/municipios/localidad_28079.xml",
+   "redirected": false,
+   "headers": [
+    [
+     "content-type",
+     "application/xml"
+    ]
+   ],
+   "contentType": {
+    "mediaType": "application/xml",
+    "charset": null
+   },
+   "size": 111,
+   "durationMs": 64,
+   "origin": "sent",
+   "body": {
+    "kind": "text",
+    "view": {
+     "kind": "xml",
+     "language": "xml",
+     "raw": "<?xml version='1.0' encoding='ISO-8859-15'?><root><productor>Agencia Estatal de Meteorología</productor></root>",
+     "pretty": "<?xml version='1.0' encoding='ISO-8859-15'?>\n<root>\n  <productor>Agencia Estatal de Meteorología</productor>\n</root>"
+    }
+   },
+   "raw": "HTTP 200 OK\ncontent-type: application/xml\n\n<?xml version='1.0' encoding='ISO-8859-15'?><root><productor>Agencia Estatal de Meteorología</productor></root>"
+  }
+ },
+ {
+  "args": [
+   {
+    "status": 200,
+    "statusText": "",
+    "url": "https://a.example.com",
+    "redirected": false,
+    "headers": [
+     [
+      "content-type",
+      "text/html; charset=utf-8"
+     ]
+    ],
+    "body": "<meta charset=\"iso-8859-1\"><p>ñ</p>",
+    "durationMs": 1,
+    "origin": "sent"
+   }
+  ],
+  "result": {
+   "status": 200,
+   "reason": "OK",
+   "statusClass": "success",
+   "url": "https://a.example.com",
+   "redirected": false,
+   "headers": [
+    [
+     "content-type",
+     "text/html; charset=utf-8"
+    ]
+   ],
+   "contentType": {
+    "mediaType": "text/html",
+    "charset": "utf-8"
+   },
+   "size": 36,
+   "durationMs": 1,
+   "origin": "sent",
+   "body": {
+    "kind": "text",
+    "view": {
+     "kind": "html",
+     "language": null,
+     "raw": "<meta charset=\"iso-8859-1\"><p>ñ</p>",
+     "pretty": "<meta charset=\"iso-8859-1\"><p>ñ</p>"
+    }
+   },
+   "raw": "HTTP 200 OK\ncontent-type: text/html; charset=utf-8\n\n<meta charset=\"iso-8859-1\"><p>ñ</p>"
+  }
  }
 ]
