@@ -3,6 +3,7 @@ for them (web/src/core/shared.test.ts writes and checks the same files)."""
 
 import importlib
 import json
+from datetime import datetime
 
 import pytest
 
@@ -42,6 +43,8 @@ def wrapped(name: str):
             return {key: value for key, value in function(response).items() if key != "bytes"}
 
         return process
+    if name == "requestFile.createRequestFile":
+        return lambda draft, iso: function(draft, datetime.fromisoformat(iso))
     if name == "codegen.generate":
         return lambda target_id, request: function(target_id).generate(request)
     return function
