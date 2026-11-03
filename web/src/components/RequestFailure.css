@@ -1,4 +1,4 @@
-/* Error box: border --danger and a 10% tint, as planned in personal_web_style DECISIONS.md (Pendientes) */
+/* Error box (personal_web_style components/alerts.md, 6. Caja de error) */
 .request-failure {
   display: flex;
   flex-direction: column;
