@@ -1,0 +1,141 @@
+# Comprueba cada cambio: tipos, lint, formato, tests y build de la versión web. Tras validar un push a main,
+# reutiliza el build para publicarlo en https://raulesteveza.github.io/tools/Api2Data/. También admite una
+# ejecución manual completa.
+#
+# Solo se ejecuta en los push que tocan la web o este workflow.
+
+name: Deploy web
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'web/**'
+      - '.github/workflows/deploy-web.yml'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    outputs:
+      publish: ${{ steps.changes.outputs.publish }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # El historial, para comparar con el commit anterior del push
+          fetch-depth: 0
+
+      # Se publica si el push cambia la web o este workflow, y siempre al lanzarlo a mano.
+      # Si no se puede comparar (primer push de la rama), se publica.
+      - name: Changes that reach the web
+        id: changes
+        working-directory: .
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          publish=true
+          if [ "$GITHUB_EVENT_NAME" = "push" ] && git cat-file -e "${BEFORE}^{commit}" 2>/dev/null; then
+            if ! git diff --name-only "$BEFORE" "$GITHUB_SHA" | grep -qE '^(web/|\.github/workflows/deploy-web\.yml)'; then
+              publish=false
+            fi
+          fi
+          echo "publish=${publish}" >> "$GITHUB_OUTPUT"
+          echo "Publicar: ${publish}"
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run format:check
+      # Los tests ejecutan el código generado con python3 y bash cuando están instalados (lo están en el runner)
+      - run: npm test
+      - run: npm run build
+
+      - name: Upload web build
+        uses: actions/upload-artifact@v7
+        with:
+          name: web-dist
+          path: web/dist
+          if-no-files-found: error
+          # Solo pasa el build al job de publicación
+          retention-days: 1
+
+  deploy-web:
+    if: github.event_name != 'pull_request' && needs.web.outputs.publish == 'true'
+    needs: web
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    concurrency:
+      group: deploy-web
+      cancel-in-progress: false
+    env:
+      SITE_REPOSITORY: RaulEstevezA/RaulEstevezA.github.io
+      TOOL_PATH: tools/Api2Data
+
+    steps:
+      - name: Check deploy token
+        env:
+          PORTFOLIO_DEPLOY_TOKEN: ${{ secrets.PORTFOLIO_DEPLOY_TOKEN }}
+        run: |
+          if [ -z "$PORTFOLIO_DEPLOY_TOKEN" ]; then
+            echo "::error::Falta el secreto PORTFOLIO_DEPLOY_TOKEN (Settings → Secrets and variables → Actions)."
+            exit 1
+          fi
+
+      - name: Download web build
+        uses: actions/download-artifact@v8
+        with:
+          name: web-dist
+          path: web-dist
+
+      - name: Checkout site
+        uses: actions/checkout@v7
+        with:
+          repository: ${{ env.SITE_REPOSITORY }}
+          ref: main
+          token: ${{ secrets.PORTFOLIO_DEPLOY_TOKEN }}
+          path: site
+
+      - name: Copy build into site
+        run: |
+          mkdir -p "site/${TOOL_PATH}"
+          rsync -a --delete web-dist/ "site/${TOOL_PATH}/"
+
+      - name: Commit and push
+        working-directory: site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "${TOOL_PATH}"
+          if git diff --cached --quiet; then
+            echo "Sin cambios en ${TOOL_PATH}"
+            exit 0
+          fi
+          git commit -m "deploy: actualizar ${TOOL_PATH} desde ${GITHUB_REPOSITORY}@${GITHUB_SHA::7}"
+
+          # Otras demos también publican en este repo:
+          # si el push falla por estar desactualizado, se actualiza y se reintenta.
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            if [ "$attempt" -lt 3 ]; then
+              echo "Intento $attempt fallido; reintentando tras actualizar main."
+              sleep 5
+            fi
+          done
+
+          echo "No se pudo publicar tras 3 intentos."
+          exit 1
+
