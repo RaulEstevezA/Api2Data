@@ -41,6 +41,14 @@ export function draftReducer(draft: RequestDraft, action: DraftAction): RequestD
     case 'body':
       return { ...draft, body: action.body }
     case 'load':
-      return { ...action.draft, params: paramsFromUrl(action.draft.url, [], newRowId) }
+      // The URL decides the enabled params; the disabled ones, which are not in it, are kept
+      return {
+        ...action.draft,
+        params: paramsFromUrl(
+          action.draft.url,
+          action.draft.params.filter((row) => !row.enabled),
+          newRowId,
+        ),
+      }
   }
 }
