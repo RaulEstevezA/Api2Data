@@ -18,22 +18,24 @@ export interface ProcessedResponse {
   size: number
   /** The body as received, for downloading it */
   bytes: Uint8Array<ArrayBuffer>
-  durationMs: number
+  durationMs: number | null
+  origin: HttpResponse['origin']
   body: ResponseBody
   /** Status line, headers and body as text, for the Raw tab */
   raw: string
 }
 
-function bodyOf(bytes: Uint8Array, contentType: ContentType | null): ResponseBody {
+function bodyOf(bytes: Uint8Array, contentType: ContentType | null, charset: string | null): ResponseBody {
   if (bytes.length === 0) return { kind: 'empty' }
   if (isBinary(contentType?.mediaType ?? null, bytes)) return { kind: 'binary' }
-  return { kind: 'text', view: viewText(decodeBody(bytes, contentType?.charset ?? null), contentType?.mediaType ?? null) }
+  return { kind: 'text', view: viewText(decodeBody(bytes, charset), contentType?.mediaType ?? null) }
 }
 
 export function processResponse(response: HttpResponse): ProcessedResponse {
   const contentType = parseContentType(headerValue(response.headers, 'content-type'))
   const reason = reasonPhrase(response.status, response.statusText)
-  const body = bodyOf(response.bytes, contentType)
+  // Pasted text was decoded by the terminal and stored as UTF-8, whatever charset the server declared
+  const body = bodyOf(response.bytes, contentType, response.origin === 'pasted' ? 'utf-8' : (contentType?.charset ?? null))
   const statusLine = `HTTP ${response.status}${reason ? ` ${reason}` : ''}`
   const headerLines = response.headers.map(([name, value]) => `${name}: ${value}`)
   const rawBody = body.kind === 'text' ? body.view.raw : ''
@@ -48,6 +50,7 @@ export function processResponse(response: HttpResponse): ProcessedResponse {
     size: response.bytes.length,
     bytes: response.bytes,
     durationMs: response.durationMs,
+    origin: response.origin,
     body,
     raw: [statusLine, ...headerLines, '', rawBody].join('\n'),
   }

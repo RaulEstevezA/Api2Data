@@ -49,6 +49,8 @@ export interface HttpResponse {
   headers: [string, string][]
   /** The body as received, after decompression */
   bytes: Uint8Array<ArrayBuffer>
-  /** Milliseconds from sending to the end of the body */
-  durationMs: number
+  /** Milliseconds from sending to the end of the body; null when Api2Data did not measure it */
+  durationMs: number | null
+  /** Sent by Api2Data, or pasted from the output of curl (text already decoded by the terminal) */
+  origin: 'sent' | 'pasted'
 }

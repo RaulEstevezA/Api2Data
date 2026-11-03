@@ -55,6 +55,7 @@ export function createFetchTransport(environment: FetchEnvironment): HttpTranspo
           headers: [...response.headers.entries()],
           bytes,
           durationMs: Math.max(0, Math.round(environment.now() - started)),
+          origin: 'sent',
         },
       }
     },

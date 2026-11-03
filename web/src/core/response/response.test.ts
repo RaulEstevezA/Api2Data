@@ -18,6 +18,7 @@ function response(overrides: Partial<HttpResponse> = {}): HttpResponse {
     headers: [['content-type', 'application/json; charset=utf-8']],
     bytes: encode('{"id":1}'),
     durationMs: 42,
+    origin: 'sent',
     ...overrides,
   }
 }
