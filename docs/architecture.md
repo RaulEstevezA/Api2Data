@@ -69,6 +69,12 @@ JSON is re-indented token by token without parsing values, so numbers beyond Jav
 | A code target | A file in `codegen/` and a line in `codegen/registry.ts` |
 | Another way of sending (desktop) | An `HttpTransport` |
 
+## Desktop version
+
+`desktop/api2data/core/` holds the same modules in Python (`request/url.ts` ↔ `request/url.py`), checked against the same cases in [`shared/test-cases/`](../shared/README.md). Drafts, requests and responses are dictionaries with the same keys as in TypeScript. A few helpers in `core/js.py` reproduce the JavaScript behavior the results depend on (`trim`, `encodeURIComponent`, `URLSearchParams`, `TextDecoder`).
+
+What changes is how requests are sent: `core/execute/urllib_transport.py` uses the Python standard library instead of `fetch`. There is no browser, so no CORS, no mixed content and no forbidden headers; the failures are those of a network (`unreachable`, `timeout`, `tls`, `interrupted`, `aborted`). The interface (`ui/`) keeps the state in a `Session` object outside the widgets, as `app/` does on the web, and sends in another thread so the window keeps responding.
+
 ## Principles
 
 - **The core decides, the interface shows.** Components call the core and the `app/` hooks; they do not build requests or read responses themselves.

@@ -31,7 +31,7 @@ Cuando una petición se bloquea, el navegador no da detalles a la página, así 
 Cuando el navegador bloquea una petición, el error ofrece dos formas de obtener la respuesta igualmente:
 
 - **curl**: «Copiar como cURL» copia el comando (con `-i`, para que muestre el estado y las cabeceras). Ejecútalo en una terminal y pega lo que devuelva con «Pegar respuesta»: se muestra como cualquier otra respuesta (estado, cabeceras, body formateado), salvo el tiempo, que Api2Data no ha medido.
-- **La versión de escritorio**, cuando esté publicada: envía las peticiones ella misma, no a través de un navegador, así que CORS no se aplica. El botón de descarga corresponde a tu sistema y tu procesador.
+- **La [versión de escritorio](./desktop/README_es.md)**: envía las peticiones ella misma, no a través de un navegador, así que CORS no se aplica. El botón de descarga (visible cuando se publique la primera versión de escritorio) corresponde a tu sistema y tu procesador.
 
 Api2Data no usa un proxy a propósito: vería tus peticiones, tokens y respuestas.
 
@@ -59,6 +59,21 @@ Api2Data  →  Api2Class  →  Mapper  →  Model2DB
 
 El JSON que devuelve una API aquí es lo que [Api2Class](https://github.com/RaulEstevezA/Api2Class) convierte en modelos tipados. Api2Class ya acepta una respuesta enviada desde Api2Data; la acción «Abrir en Api2Class» aparecerá aquí cuando esa versión esté publicada. El contrato está en [docs/interoperability.md](docs/interoperability.md).
 
+## Versiones
+
+| | Web | Escritorio |
+|---|---|---|
+| Tecnología | React + TypeScript + Vite | Python + PySide6 |
+| Se ejecuta en | El navegador | Aplicación instalable (Windows, macOS, Linux) |
+| CORS | Se aplica: la API tiene que permitir otras webs | No se aplica |
+| Documentación | Este README y [docs/](./docs) | [desktop/README_es.md](./desktop/README_es.md) |
+
+La aplicación de escritorio hace lo mismo que la versión web, con el mismo aspecto, los mismos ejemplos y en inglés o español.
+
+## Comportamiento compartido
+
+Las dos versiones están escritas por separado (TypeScript y Python), pero **se comportan igual**: la carpeta [`shared/`](./shared/README.md) contiene los casos de prueba que definen qué debe hacer cada parte del núcleo, desde la URL y sus params hasta la preparación de la petición, las credenciales, el formato, los comandos cURL, los archivos de petición, el historial y el código generado. Los tests de la web y del escritorio leen los mismos archivos, así que una diferencia en cualquiera de las dos versiones hace fallar sus tests.
+
 ## Desarrollo
 
 La versión web está en [`web/`](./web): React, TypeScript y Vite, con CodeMirror para los editores y sin librerías de componentes; su aspecto sigue el diseño común de la web y las demás herramientas.
@@ -71,7 +86,9 @@ npm run check    # tipos, lint, formato y tests
 npm run build    # build de producción en web/dist
 ```
 
-Los tests cubren el núcleo (URL y params, autorización, bodies, preparación de la petición, fallos, respuestas, historial, importación y generación de código —también ejecutando el Python y el shell generados cuando `python3` y `bash` están instalados—) y los flujos principales de la interfaz.
+Los tests cubren el núcleo (URL y params, autorización, bodies, preparación de la petición, fallos, respuestas, historial, importación y generación de código —también ejecutando el Python y el shell generados cuando `python3` y `bash` están instalados—), los casos compartidos y los flujos principales de la interfaz.
+
+La versión de escritorio está en [`desktop/`](./desktop): consulta [desktop/README_es.md](./desktop/README_es.md#ejecutar-en-local) para ejecutarla, probarla y crear el ejecutable.
 
 ## Estructura del repositorio
 
@@ -80,6 +97,11 @@ web/                     Versión web (React + TypeScript + Vite)
   src/core/              Lógica sin interfaz: peticiones, autorización, bodies, ejecución, respuestas, historial, importación, código
   src/app/               Estado de la interfaz fuera de los componentes (borrador, envío, historial)
   src/components/        Interfaz React
+desktop/                 Versión de escritorio (Python + PySide6)
+  api2data/core/         La misma lógica que web/src/core/, en Python, más el envío con la biblioteca estándar
+  api2data/ui/           Interfaz con PySide6
+shared/                  Comportamiento común a las dos versiones
+  test-cases/            Llamadas al núcleo y el resultado que deben dar las dos versiones
 docs/                    Documentación técnica e imágenes
 ```
 

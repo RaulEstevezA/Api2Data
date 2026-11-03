@@ -31,7 +31,7 @@ When a request is blocked, the browser gives no details to the page, so Api2Data
 When the browser blocks a request, the error offers two ways to get the response anyway:
 
 - **curl**: "Copy as cURL" copies the command (with `-i`, so it prints the status and the headers). Run it in a terminal and paste its output with "Paste response": it is shown like any other response (status, headers, formatted body), except for the time, which Api2Data did not measure.
-- **The desktop version**, once it is released: it sends the requests itself, not through a browser, so CORS does not apply. The download button matches your system and processor.
+- **The [desktop version](./desktop/README_en.md)**: it sends the requests itself, not through a browser, so CORS does not apply. The download button (shown once the first desktop release is published) matches your system and processor.
 
 Api2Data does not use a proxy on purpose: it would see your requests, tokens and responses.
 
@@ -59,6 +59,21 @@ Api2Data  →  Api2Class  →  Mapper  →  Model2DB
 
 The JSON an API returns here is what [Api2Class](https://github.com/RaulEstevezA/Api2Class) turns into typed models. Api2Class already accepts a response sent from Api2Data; the "Open in Api2Class" action will be shown here once that version is published. The contract is in [docs/interoperability.md](docs/interoperability.md).
 
+## Versions
+
+| | Web | Desktop |
+|---|---|---|
+| Technology | React + TypeScript + Vite | Python + PySide6 |
+| Runs in | The browser | Installable application (Windows, macOS, Linux) |
+| CORS | Applies: the API has to allow other websites | Does not apply |
+| Documentation | This README and [docs/](./docs) | [desktop/README_en.md](./desktop/README_en.md) |
+
+The desktop app does what the web version does, with the same look, the same examples and English or Spanish.
+
+## Shared behavior
+
+The two versions are written separately (TypeScript and Python), but **they behave the same**: the [`shared/`](./shared/README.md) folder holds the test cases that define what each part of the core must do, from the URL and its params to request preparation, redaction, formatting, cURL commands, request files, the history and the generated code. The web and desktop tests read the same files, so a difference in either version makes its tests fail.
+
 ## Development
 
 The web version is in [`web/`](./web): React, TypeScript and Vite, with CodeMirror for the editors and no component libraries; its look follows the shared design of the portfolio and the other tools.
@@ -71,7 +86,9 @@ npm run check    # types, lint, format and tests
 npm run build    # production build in web/dist
 ```
 
-The tests cover the core (URL and params, authorization, bodies, request preparation, failures, responses, history, imports, code generation — also running the generated Python and shell when `python3` and `bash` are installed) and the main interface flows.
+The tests cover the core (URL and params, authorization, bodies, request preparation, failures, responses, history, imports, code generation — also running the generated Python and shell when `python3` and `bash` are installed), the shared cases and the main interface flows.
+
+The desktop version is in [`desktop/`](./desktop): see [desktop/README_en.md](./desktop/README_en.md#run-locally) to run it, test it and build the executable.
 
 ## Repository structure
 
@@ -80,6 +97,11 @@ web/                     Web version (React + TypeScript + Vite)
   src/core/              Logic without interface: requests, auth, bodies, execution, responses, history, imports, code
   src/app/               Interface state outside the components (draft, sending, history)
   src/components/        React interface
+desktop/                 Desktop version (Python + PySide6)
+  api2data/core/         The same logic as web/src/core/, in Python, plus sending with the standard library
+  api2data/ui/           Interface with PySide6
+shared/                  Behavior common to both versions
+  test-cases/            Calls of the core and the result both versions must give
 docs/                    Technical documentation and images
 ```
 

@@ -1,6 +1,6 @@
 # Changelog
 
-Notable changes to Api2Data. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and versions follow [Semantic Versioning](https://semver.org/). The web version is published on every change to `main`.
+Notable changes to Api2Data, the web and the desktop version together. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and versions follow [Semantic Versioning](https://semver.org/). The web version is published on every change to `main`; desktop releases are tagged `v<version>` and published on [Releases](https://github.com/RaulEstevezA/Api2Data/releases).
 
 ## [Unreleased]
 
@@ -17,5 +17,7 @@ Notable changes to Api2Data. The format follows [Keep a Changelog](https://keepa
 - Web: paste a cURL command in the URL bar to fill the request; save and open requests as `.api2data.json` files, without credentials.
 - Web: the request as cURL, JavaScript (fetch) or Python (requests).
 - Web: English and Spanish, examples, and Cloudflare Web Analytics.
+- Desktop: the same tool as an installable app for Windows, macOS and Linux (Python + PySide6). Requests are sent without a browser, so CORS does not apply and every header is sent as written; the history, request files, cURL commands and generated code work as in the web version.
+- Both: shared test cases (`shared/test-cases/`) that the web and desktop cores must pass, so they prepare, check, format and save requests the same way.
 
 [Unreleased]: https://github.com/RaulEstevezA/Api2Data/commits/main
