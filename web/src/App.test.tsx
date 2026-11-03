@@ -62,6 +62,9 @@ describe('App', () => {
     expect(screen.getByText('application/json')).toBeTruthy()
     // The editor gets its text in an effect after the summary is shown
     await waitFor(() => expect(document.querySelector('.cm-content')?.textContent).toContain('"name": "Api2Class"'))
+
+    fireEvent.click(screen.getByRole('button', { name: 'Search' }))
+    expect(document.querySelector('.cm-search')).not.toBeNull()
   })
 
   it('keeps the URL and the Params table in sync', () => {

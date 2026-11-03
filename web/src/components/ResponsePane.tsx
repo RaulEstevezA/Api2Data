@@ -1,3 +1,5 @@
+import { openSearchPanel } from '@codemirror/search'
+import type { EditorView } from '@codemirror/view'
 import { useEffect, useRef, useState } from 'react'
 import type { SendState } from '../app/useSender.ts'
 import type { ProcessedResponse } from '../core/response/process.ts'
@@ -27,7 +29,7 @@ function copyable(response: ProcessedResponse, section: ResponseSection): string
   return response.body.kind === 'text' ? response.body.view.pretty : ''
 }
 
-function ResponseBodyView({ response }: { response: ProcessedResponse }) {
+function ResponseBodyView({ response, onView }: { response: ProcessedResponse; onView: (view: EditorView | null) => void }) {
   const { t } = useI18n()
   const { body } = response
   if (body.kind === 'empty') return <p className="response-pane__message">{t.bodyEmpty}</p>
@@ -48,6 +50,7 @@ function ResponseBodyView({ response }: { response: ProcessedResponse }) {
           readOnly
           label={t.responseBodyLabel}
           errorLine={invalid?.line ?? null}
+          onView={onView}
         />
       </div>
     </div>
@@ -60,6 +63,8 @@ export function ResponsePane({ state }: { state: SendState }) {
   const [copied, setCopied] = useState(false)
   const copiedTimer = useRef<number | undefined>(undefined)
   const response = state.status === 'done' ? state.response : null
+  // The editor shown (body or raw), to open its search panel
+  const [editor, setEditor] = useState<EditorView | null>(null)
 
   useEffect(() => () => window.clearTimeout(copiedTimer.current), [])
 
@@ -92,6 +97,15 @@ export function ResponsePane({ state }: { state: SendState }) {
           <div className="response-pane__actions">
             <span className="mono response-pane__file">{fileName(response)}</span>
             <div className="actions">
+              <button
+                type="button"
+                className="button"
+                title={t.searchTitle}
+                disabled={!editor || section === 'headers'}
+                onClick={() => editor && openSearchPanel(editor)}
+              >
+                {t.search}
+              </button>
               <button type="button" className="button" disabled={!copyable(response, section)} onClick={copy}>
                 {copied ? t.copied : t.copy}
               </button>
@@ -118,11 +132,11 @@ export function ResponsePane({ state }: { state: SendState }) {
         {state.status === 'failed' && <RequestFailure failure={state.failure} url={state.request.url} />}
         {response && (
           <div id="response-panel" className="response-pane__section" role="tabpanel" aria-labelledby={`response-tab-${section}`}>
-            {section === 'body' && <ResponseBodyView response={response} />}
+            {section === 'body' && <ResponseBodyView response={response} onView={setEditor} />}
             {section === 'headers' && <ResponseHeaders headers={response.headers} />}
             {section === 'raw' && (
               <div className="response-pane__editor">
-                <CodeEditor value={response.raw} language={null} readOnly label={t.rawLabel} />
+                <CodeEditor value={response.raw} language={null} readOnly label={t.rawLabel} onView={setEditor} />
               </div>
             )}
           </div>

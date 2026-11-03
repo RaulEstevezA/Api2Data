@@ -7,8 +7,10 @@ import { bracketMatching, HighlightStyle, indentOnInput, StreamLanguage, syntaxH
 import { shell } from '@codemirror/legacy-modes/mode/shell'
 import { Compartment, EditorState, RangeSetBuilder, type Extension } from '@codemirror/state'
 import { Decoration, EditorView, highlightActiveLine, keymap, lineNumbers, placeholder as placeholderText } from '@codemirror/view'
+import { highlightSelectionMatches, search, searchKeymap } from '@codemirror/search'
 import { tags } from '@lezer/highlight'
 import { useEffect, useRef } from 'react'
+import { useI18n } from '../i18n/useI18n.ts'
 import './CodeEditor.css'
 
 // GitHub's syntax colors, from the tokens in index.css (same editor as Api2Class)
@@ -36,6 +38,36 @@ const theme = EditorView.theme({
   '.cm-matchingBracket': { backgroundColor: 'var(--bracket)', outline: 'none' },
   '.cm-placeholder': { color: 'var(--muted)' },
   '.cm-errorLine': { backgroundColor: 'var(--error-line)' },
+  // Search panel and matches, with the same controls as the rest of the page
+  '.cm-searchMatch': { backgroundColor: 'var(--warning-soft)', outline: '1px solid var(--warning)' },
+  '.cm-searchMatch.cm-searchMatch-selected': { backgroundColor: 'var(--accent-soft)', outline: '1px solid var(--accent)' },
+  '.cm-selectionMatch': { backgroundColor: 'var(--accent-soft)' },
+  '.cm-panels': { backgroundColor: 'var(--surface)', color: 'var(--text)' },
+  '.cm-panels.cm-panels-top': { borderBottom: '1px solid var(--border)' },
+  '.cm-search': { padding: '8px 36px 8px 12px', fontFamily: 'var(--sans)', fontSize: 'var(--font-label)' },
+  '.cm-search label': { color: 'var(--muted)', fontSize: 'var(--font-label)' },
+  '.cm-textfield': {
+    padding: '4px 8px',
+    border: '1px solid var(--border)',
+    borderRadius: 'var(--radius-sm)',
+    backgroundColor: 'var(--page-bg)',
+    color: 'var(--text)',
+    fontFamily: 'var(--mono)',
+    fontSize: 'var(--font-label)',
+  },
+  '.cm-textfield:focus': { borderColor: 'var(--accent)' },
+  '.cm-button': {
+    padding: '2px 8px',
+    border: '1px solid var(--border)',
+    borderRadius: 'var(--radius-xs)',
+    backgroundColor: 'var(--surface-raised)',
+    backgroundImage: 'none',
+    color: 'var(--btn-text)',
+    fontFamily: 'var(--sans)',
+    fontSize: 'var(--font-label)',
+  },
+  '.cm-button:hover': { borderColor: 'var(--muted)', backgroundColor: 'var(--border)' },
+  '.cm-search button[name=close]': { color: 'var(--muted)', fontSize: '1.25rem' },
 })
 
 export type EditorLanguage = 'json' | 'xml' | 'javascript' | 'python' | 'shell' | null
@@ -67,10 +99,22 @@ interface CodeEditorProps {
   placeholder?: string
   /** 1-based line to highlight as wrong */
   errorLine?: number | null
+  /** Receives the editor once created, to open its search panel from outside */
+  onView?: (view: EditorView | null) => void
 }
 
 /** CodeMirror editor. Text typed here is only kept in memory. */
-export function CodeEditor({ value, onChange, language, readOnly = false, label, placeholder = '', errorLine = null }: CodeEditorProps) {
+export function CodeEditor({
+  value,
+  onChange,
+  language,
+  readOnly = false,
+  label,
+  placeholder = '',
+  errorLine = null,
+  onView,
+}: CodeEditorProps) {
+  const { t } = useI18n()
   const container = useRef<HTMLDivElement>(null)
   const view = useRef<EditorView | null>(null)
   const onChangeRef = useRef(onChange)
@@ -81,9 +125,12 @@ export function CodeEditor({ value, onChange, language, readOnly = false, label,
     texts: new Compartment(),
   })
 
+  const onViewRef = useRef(onView)
+
   useEffect(() => {
     onChangeRef.current = onChange
-  }, [onChange])
+    onViewRef.current = onView
+  }, [onChange, onView])
 
   // Created once; the props are applied below by reconfiguring it
   useEffect(() => {
@@ -98,7 +145,9 @@ export function CodeEditor({ value, onChange, language, readOnly = false, label,
           history(),
           bracketMatching(),
           indentOnInput(),
-          keymap.of([...defaultKeymap, ...historyKeymap, indentWithTab]),
+          search({ top: true }),
+          highlightSelectionMatches(),
+          keymap.of([...searchKeymap, ...defaultKeymap, ...historyKeymap, indentWithTab]),
           syntaxHighlighting(highlight),
           theme,
           slots.language.of([]),
@@ -112,7 +161,9 @@ export function CodeEditor({ value, onChange, language, readOnly = false, label,
       }),
     })
     view.current = editor
+    onViewRef.current?.(editor)
     return () => {
+      onViewRef.current?.(null)
       editor.destroy()
       view.current = null
     }
@@ -128,9 +179,13 @@ export function CodeEditor({ value, onChange, language, readOnly = false, label,
 
   // Change with the interface language
   useEffect(() => {
-    const texts = [EditorView.contentAttributes.of({ 'aria-label': label }), placeholderText(placeholder)]
+    const texts = [
+      EditorView.contentAttributes.of({ 'aria-label': label }),
+      placeholderText(placeholder),
+      EditorState.phrases.of(t.editorPhrases),
+    ]
     view.current?.dispatch({ effects: compartments.current.texts.reconfigure(texts) })
-  }, [label, placeholder])
+  }, [label, placeholder, t])
 
   useEffect(() => {
     view.current?.dispatch({ effects: compartments.current.errorLine.reconfigure(errorLineDecoration(errorLine)) })

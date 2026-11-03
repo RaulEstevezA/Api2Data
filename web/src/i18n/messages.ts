@@ -244,6 +244,11 @@ const en = {
   dismiss: 'Close',
   loaded: (method: string, url: string) => `Loaded ${method} ${url}.`,
 
+  // Code editor (CodeMirror keeps its English texts)
+  editorPhrases: {} as Record<string, string>,
+  search: 'Search',
+  searchTitle: 'Search in the response (Ctrl/Cmd+F)',
+
   // Response
   responseTitle: 'Response',
   responseEmpty: 'Send a request to see the response here.',
@@ -512,6 +517,26 @@ const es: Messages = {
   },
   dismiss: 'Cerrar',
   loaded: (method, url) => `Cargada ${method} ${url}.`,
+
+  editorPhrases: {
+    Find: 'Buscar',
+    next: 'siguiente',
+    previous: 'anterior',
+    all: 'todas',
+    'match case': 'mayúsculas',
+    regexp: 'expresión regular',
+    'by word': 'palabra completa',
+    close: 'cerrar',
+    Replace: 'Reemplazar',
+    replace: 'reemplazar',
+    'replace all': 'reemplazar todas',
+    'current match': 'coincidencia actual',
+    'on line': 'en la línea',
+    'Go to line': 'Ir a la línea',
+    go: 'ir',
+  },
+  search: 'Buscar',
+  searchTitle: 'Buscar en la respuesta (Ctrl/Cmd+F)',
 
   responseTitle: 'Respuesta',
   responseEmpty: 'Envía una petición para ver aquí la respuesta.',
