@@ -1,12 +1,14 @@
 import { defaultKeymap, history, historyKeymap, indentWithTab } from '@codemirror/commands'
+import { javascript } from '@codemirror/lang-javascript'
 import { json } from '@codemirror/lang-json'
+import { python } from '@codemirror/lang-python'
 import { xml } from '@codemirror/lang-xml'
-import { bracketMatching, HighlightStyle, indentOnInput, syntaxHighlighting, type LanguageSupport } from '@codemirror/language'
-import { Compartment, EditorState, RangeSetBuilder } from '@codemirror/state'
+import { bracketMatching, HighlightStyle, indentOnInput, StreamLanguage, syntaxHighlighting } from '@codemirror/language'
+import { shell } from '@codemirror/legacy-modes/mode/shell'
+import { Compartment, EditorState, RangeSetBuilder, type Extension } from '@codemirror/state'
 import { Decoration, EditorView, highlightActiveLine, keymap, lineNumbers, placeholder as placeholderText } from '@codemirror/view'
 import { tags } from '@lezer/highlight'
 import { useEffect, useRef } from 'react'
-import type { ViewLanguage } from '../core/response/viewers.ts'
 import './CodeEditor.css'
 
 // GitHub's syntax colors, from the tokens in index.css (same editor as Api2Class)
@@ -36,7 +38,15 @@ const theme = EditorView.theme({
   '.cm-errorLine': { backgroundColor: 'var(--error-line)' },
 })
 
-const LANGUAGES: Record<Exclude<ViewLanguage, null>, () => LanguageSupport> = { json, xml }
+export type EditorLanguage = 'json' | 'xml' | 'javascript' | 'python' | 'shell' | null
+
+const LANGUAGES: Record<Exclude<EditorLanguage, null>, () => Extension> = {
+  json,
+  xml,
+  javascript,
+  python,
+  shell: () => StreamLanguage.define(shell),
+}
 
 function errorLineDecoration(line: number | null) {
   return EditorView.decorations.compute(['doc'], (state) => {
@@ -51,7 +61,7 @@ function errorLineDecoration(line: number | null) {
 interface CodeEditorProps {
   value: string
   onChange?: (value: string) => void
-  language: ViewLanguage
+  language: EditorLanguage
   readOnly?: boolean
   label: string
   placeholder?: string

@@ -5,16 +5,18 @@ import type { KeyValue, RequestDraft } from '../core/http/types.ts'
 import type { AuthConfig } from '../core/auth/types.ts'
 import type { BodyConfig } from '../core/body/types.ts'
 import type { Preparation, RequestIssue } from '../core/request/build.ts'
+import { hasCredentials } from '../core/request/redact.ts'
 import { useI18n } from '../i18n/useI18n.ts'
 import { AuthEditor } from './AuthEditor.tsx'
 import { BodyEditor } from './BodyEditor.tsx'
+import { CodeSnippet } from './CodeSnippet.tsx'
 import { IssueList } from './IssueList.tsx'
 import { KeyValueEditor } from './KeyValueEditor.tsx'
 import { Pane } from './Pane.tsx'
 import { SectionTabs, type SectionTab } from './SectionTabs.tsx'
 import './RequestPane.css'
 
-export type RequestSection = 'params' | 'headers' | 'auth' | 'body'
+export type RequestSection = 'params' | 'headers' | 'auth' | 'body' | 'code'
 
 const HEADER_ISSUES = new Set<RequestIssue['code']>(['headerName', 'headerValue', 'forbiddenHeader', 'authOverridden'])
 const AUTH_ISSUES = new Set<RequestIssue['code']>(['authIncomplete', 'authOverridden'])
@@ -63,6 +65,7 @@ export function RequestPane({
       badge: allowsBody(draft.method) && draft.body.mode !== 'none' ? t.bodyModes[draft.body.mode] : undefined,
       warning: bodyError,
     },
+    { id: 'code', label: t.sections.code },
   ]
 
   return (
@@ -113,6 +116,8 @@ export function RequestPane({
           ) : (
             <p className="request-pane__hint">{t.bodyNotAllowed(draft.method)}</p>
           ))}
+
+        {section === 'code' && <CodeSnippet request={preparation.request} withCredentials={hasCredentials(draft)} />}
       </div>
     </Pane>
   )
