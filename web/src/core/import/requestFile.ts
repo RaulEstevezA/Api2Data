@@ -20,17 +20,18 @@ export function createRequestFile(draft: RequestDraft, exportedAt: Date): string
   return JSON.stringify(file, null, 2) + '\n'
 }
 
-/** File name from the last part of the address: "users.api2data.json". */
+/** File name from the last part of the address, decoded: "users.api2data.json", "ñandú.api2data.json". */
 export function requestFileName(draft: RequestDraft): string {
   let name = ''
   try {
-    const path = new URL(draft.url).pathname.split('/').filter(Boolean)
-    name = path.at(-1) ?? new URL(draft.url).hostname
+    const url = new URL(draft.url)
+    name = url.pathname.split('/').filter(Boolean).at(-1) ?? url.hostname
+    name = decodeURIComponent(name)
   } catch {
-    name = ''
+    // An address that cannot be read, or a segment with a broken escape: the name is not worth an error
   }
   const safe = name
-    .replace(/[^\w.-]+/g, '-')
+    .replace(/[^\p{L}\p{N}_.-]+/gu, '-')
     .replace(/^[-.]+|[-.]+$/g, '')
     .slice(0, 60)
   return `${safe || 'request'}${REQUEST_FILE_EXTENSION}`
