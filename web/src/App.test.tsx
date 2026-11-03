@@ -94,4 +94,38 @@ describe('App', () => {
     expect(screen.getByText('Write the address of the API to send the request.')).toBeTruthy()
     expect(fetchMock).not.toHaveBeenCalled()
   })
+
+  it('keeps sent requests in the history, without credentials unless chosen', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => new Response('[]', { status: 200, headers: { 'Content-Type': 'application/json' } })),
+    )
+    renderApp()
+    fireEvent.change(screen.getByRole('textbox', { name: 'URL' }), { target: { value: 'https://api.example.com/items?page=1' } })
+    fireEvent.click(screen.getByRole('tab', { name: 'Authorization' }))
+    fireEvent.change(screen.getByRole('combobox', { name: 'Type' }), { target: { value: 'bearer' } })
+    fireEvent.change(screen.getByLabelText('Token'), { target: { value: 'secret-token' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Send' }))
+    await waitFor(() => expect(screen.getByText('History (1)')).toBeTruthy())
+
+    const stored = localStorage.getItem('api2data.history')!
+    expect(stored).toContain('https://api.example.com/items?page=1')
+    expect(stored).not.toContain('secret-token')
+
+    // Start over and load it back
+    fireEvent.change(screen.getByRole('textbox', { name: 'URL' }), { target: { value: '' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Load GET https://api.example.com/items?page=1' }))
+    expect((screen.getByRole('textbox', { name: 'URL' }) as HTMLInputElement).value).toBe('https://api.example.com/items?page=1')
+
+    // Chosen explicitly: the token is kept, and the entry says so
+    fireEvent.click(screen.getByRole('checkbox', { name: 'Also save tokens, passwords and keys' }))
+    fireEvent.change(screen.getByLabelText('Token'), { target: { value: 'secret-token' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Send' }))
+    await waitFor(() => expect(screen.getByText('with credentials')).toBeTruthy())
+    expect(localStorage.getItem('api2data.history')).toContain('secret-token')
+
+    // Turning it off removes them again
+    fireEvent.click(screen.getByRole('checkbox', { name: 'Also save tokens, passwords and keys' }))
+    expect(localStorage.getItem('api2data.history')).not.toContain('secret-token')
+  })
 })

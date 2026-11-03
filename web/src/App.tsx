@@ -1,14 +1,18 @@
-import { useCallback, useEffect, useMemo, useReducer, useState } from 'react'
+import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import { draftReducer, emptyDraft } from './app/draft.ts'
+import { useHistory } from './app/useHistory.ts'
 import { useSender } from './app/useSender.ts'
 import { AppFooter } from './components/AppFooter.tsx'
 import { AppHeader } from './components/AppHeader.tsx'
+import { HistoryPanel } from './components/HistoryPanel.tsx'
 import { IntroPanel } from './components/IntroPanel.tsx'
 import { LinksPanel } from './components/LinksPanel.tsx'
 import { RequestBar } from './components/RequestBar.tsx'
 import { RequestPane } from './components/RequestPane.tsx'
 import { ResponsePane } from './components/ResponsePane.tsx'
 import { createFetchTransport } from './core/execute/fetchTransport.ts'
+import { createHistoryStore } from './core/history/store.ts'
+import type { RequestDraft } from './core/http/types.ts'
 import { prepareRequest } from './core/request/build.ts'
 import { EXAMPLES, type ExampleId } from './examples/index.ts'
 import { useI18n } from './i18n/useI18n.ts'
@@ -22,12 +26,25 @@ const transport = createFetchTransport({
   isOnline: () => navigator.onLine,
 })
 
+// localStorage is looked up on every call: reading it can throw when the browser blocks it, and the store
+// turns that into "nothing saved"
+const browserStorage: Pick<Storage, 'getItem' | 'setItem' | 'removeItem'> = {
+  getItem: (key) => window.localStorage.getItem(key),
+  setItem: (key, value) => window.localStorage.setItem(key, value),
+  removeItem: (key) => window.localStorage.removeItem(key),
+}
+
+const historyStore = createHistoryStore(browserStorage)
+
 type WorkspaceTab = 'request' | 'response'
 
 export default function App() {
   const { t } = useI18n()
   const [draft, dispatch] = useReducer(draftReducer, undefined, emptyDraft)
   const { state, send, cancel } = useSender(transport)
+  const history = useHistory(historyStore)
+  // The request as it was when sent, recorded in the history once its result arrives
+  const sent = useRef<{ draft: RequestDraft; recorded: boolean } | null>(null)
   const preparation = useMemo(() => prepareRequest(draft), [draft])
   // Errors under the bar only after trying to send: an address being typed is not yet a mistake
   const [attempted, setAttempted] = useState(false)
@@ -42,8 +59,19 @@ export default function App() {
     setAttempted(false)
     // On narrow screens the answer is what the user wants to see next
     setTab('response')
+    sent.current = { draft, recorded: false }
     void send(preparation.request)
-  }, [preparation.request, send])
+  }, [draft, preparation.request, send])
+
+  const { record } = history
+  useEffect(() => {
+    const current = sent.current
+    if (!current || current.recorded || (state.status !== 'done' && state.status !== 'failed')) return
+    current.recorded = true
+    // A cancelled request is not worth keeping
+    if (state.status === 'failed' && state.failure.kind === 'aborted') return
+    record(current.draft, state.status === 'done' ? { status: state.response.status } : { failure: state.failure.kind })
+  }, [state, record])
 
   // Ctrl/Cmd+Enter sends from anywhere, also from the body editor
   useEffect(() => {
@@ -85,6 +113,22 @@ export default function App() {
           onUrl={(url) => dispatch({ type: 'url', url })}
           onSend={submit}
           onCancel={cancel}
+        />
+        <HistoryPanel
+          entries={history.entries}
+          enabled={history.enabled}
+          keepCredentials={history.keepCredentials}
+          notice={history.notice}
+          onEnabled={history.setEnabled}
+          onKeepCredentials={history.setKeepCredentials}
+          onDismissNotice={history.dismissNotice}
+          onLoad={(entry) => {
+            dispatch({ type: 'load', draft: entry.draft })
+            setAttempted(false)
+            setTab('request')
+          }}
+          onRemove={history.remove}
+          onClear={history.clear}
         />
         <div className="workspace__tabs" role="tablist" aria-label={t.workspaceTabs}>
           {workspaceTabs.map((item) => (

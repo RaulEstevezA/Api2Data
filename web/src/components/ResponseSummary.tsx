@@ -1,16 +1,8 @@
 import type { ProcessedResponse } from '../core/response/process.ts'
-import type { StatusClass } from '../core/response/status.ts'
 import { useI18n } from '../i18n/useI18n.ts'
 import { formatBytes, formatDuration } from '../utils/format.ts'
+import { StatusBadge } from './StatusBadge.tsx'
 import './ResponseSummary.css'
-
-const STATUS_BADGE: Record<StatusClass, string> = {
-  informational: 'badge',
-  success: 'badge badge--success',
-  redirect: 'badge badge--accent',
-  clientError: 'badge badge--warning',
-  serverError: 'badge badge--danger',
-}
 
 /** Status, time, size and type at a glance. The status always carries its text, not only its color. */
 export function ResponseSummary({ response }: { response: ProcessedResponse }) {
@@ -21,10 +13,7 @@ export function ResponseSummary({ response }: { response: ProcessedResponse }) {
         <div>
           <dt>{t.statusLabel}</dt>
           <dd>
-            <span className={`${STATUS_BADGE[response.statusClass]} response-summary__status`}>
-              {response.status}
-              {response.reason && ` ${response.reason}`}
-            </span>
+            <StatusBadge status={response.status} reason={response.reason} className="response-summary__status" />
           </dd>
         </div>
         <div>

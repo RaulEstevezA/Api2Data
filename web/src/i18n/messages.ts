@@ -171,6 +171,29 @@ const en = {
     }
   },
 
+  // History
+  historyTitle: (count: number) => `History (${en$(count)})`,
+  historySave: 'Save the history in this browser',
+  historySaveHint: 'Only here: it is never sent anywhere. The body is kept as written.',
+  historyCredentials: 'Also save tokens, passwords and keys',
+  historyCredentialsHint:
+    'Off: they are left out, along with the values of headers and parameters that look secret. Turning it off removes them from the history.',
+  historyEmpty: 'The requests you send will appear here.',
+  historyOff: 'The history is not being saved.',
+  historyLoad: (method: string, url: string) => `Load ${method} ${url}`,
+  historyRemove: (method: string, url: string) => `Remove ${method} ${url} from the history`,
+  historyWithCredentials: 'with credentials',
+  historyNoResponse: 'no response',
+  historyClear: 'Clear history',
+  historyClearConfirm: 'Clear the whole history saved in this browser?',
+  historyNotice: {
+    version: 'The saved history is from another version of Api2Data and cannot be read: a new one starts.',
+    damaged: 'The saved history is damaged and cannot be read: a new one starts.',
+    unavailable: 'This browser does not let Api2Data save the history (private mode or storage full): it lasts while the tab is open.',
+  },
+  dismiss: 'Close',
+  loaded: (method: string, url: string) => `Loaded ${method} ${url}.`,
+
   // Response
   responseTitle: 'Response',
   responseEmpty: 'Send a request to see the response here.',
@@ -368,6 +391,29 @@ const es: Messages = {
         return `Ya hay una cabecera “${issue.name}” en Headers: se envía esa en lugar de la de Autorización.`
     }
   },
+
+  historyTitle: (count) => `Historial (${es$(count)})`,
+  historySave: 'Guardar el historial en este navegador',
+  historySaveHint: 'Solo aquí: nunca se envía a ningún sitio. El body se guarda tal como está escrito.',
+  historyCredentials: 'Guardar también tokens, contraseñas y claves',
+  historyCredentialsHint:
+    'Desactivado: se omiten, junto con los valores de cabeceras y parámetros que parecen secretos. Al desactivarlo se quitan del historial.',
+  historyEmpty: 'Las peticiones que envíes aparecerán aquí.',
+  historyOff: 'El historial no se está guardando.',
+  historyLoad: (method, url) => `Cargar ${method} ${url}`,
+  historyRemove: (method, url) => `Quitar ${method} ${url} del historial`,
+  historyWithCredentials: 'con credenciales',
+  historyNoResponse: 'sin respuesta',
+  historyClear: 'Borrar historial',
+  historyClearConfirm: '¿Borrar todo el historial guardado en este navegador?',
+  historyNotice: {
+    version: 'El historial guardado es de otra versión de Api2Data y no se puede leer: empieza uno nuevo.',
+    damaged: 'El historial guardado está dañado y no se puede leer: empieza uno nuevo.',
+    unavailable:
+      'Este navegador no deja que Api2Data guarde el historial (modo privado o almacenamiento lleno): dura mientras la pestaña esté abierta.',
+  },
+  dismiss: 'Cerrar',
+  loaded: (method, url) => `Cargada ${method} ${url}.`,
 
   responseTitle: 'Respuesta',
   responseEmpty: 'Envía una petición para ver aquí la respuesta.',

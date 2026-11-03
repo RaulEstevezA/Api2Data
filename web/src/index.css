@@ -200,6 +200,20 @@ button {
   cursor: default;
 }
 
+.check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  color: var(--text);
+  font-size: var(--font-small);
+  cursor: pointer;
+}
+
+.check:has(input:disabled) {
+  opacity: 0.6;
+  cursor: default;
+}
+
 .field__hint {
   color: var(--muted);
   font-size: var(--font-label);

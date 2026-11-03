@@ -25,3 +25,16 @@ export function hostOf(url: string): string {
     return url
   }
 }
+
+/** "10:42" for today, "3 Nov, 10:42" for another day, in the language's format. */
+export function formatWhen(iso: string, locale: string, now = new Date()): string {
+  const date = new Date(iso)
+  const time = date.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' })
+  if (date.toDateString() === now.toDateString()) return time
+  const day = date.toLocaleDateString(locale, {
+    day: 'numeric',
+    month: 'short',
+    ...(date.getFullYear() === now.getFullYear() ? {} : { year: 'numeric' }),
+  })
+  return `${day}, ${time}`
+}
