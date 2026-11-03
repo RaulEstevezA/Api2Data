@@ -60,7 +60,8 @@ describe('App', () => {
       expect.objectContaining({ method: 'GET', credentials: 'omit', headers: [['Accept', 'application/vnd.github+json']] }),
     )
     expect(screen.getByText('application/json')).toBeTruthy()
-    expect(document.querySelector('.cm-content')?.textContent).toContain('"name": "Api2Class"')
+    // The editor gets its text in an effect after the summary is shown
+    await waitFor(() => expect(document.querySelector('.cm-content')?.textContent).toContain('"name": "Api2Class"'))
   })
 
   it('keeps the URL and the Params table in sync', () => {
