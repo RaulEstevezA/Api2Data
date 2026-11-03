@@ -129,4 +129,16 @@ describe('App', () => {
     fireEvent.click(screen.getByRole('checkbox', { name: 'Also save tokens, passwords and keys' }))
     expect(localStorage.getItem('api2data.history')).not.toContain('secret-token')
   })
+
+  it('fills the request from a pasted cURL command', () => {
+    renderApp()
+    const command =
+      "curl 'https://api.example.com/items' \\\n  -H 'accept: application/json' \\\n  -H 'authorization: Bearer abc' \\\n  --data-raw '{\"a\":1}'"
+    fireEvent.paste(screen.getByRole('textbox', { name: 'URL' }), { clipboardData: { getData: () => command } })
+    expect((screen.getByRole('textbox', { name: 'URL' }) as HTMLInputElement).value).toBe('https://api.example.com/items')
+    expect((screen.getByRole('combobox', { name: 'Method' }) as HTMLSelectElement).value).toBe('POST')
+    expect(screen.getByText('cURL command imported.')).toBeTruthy()
+    expect(screen.getByRole('tab', { name: /Authorization/ }).textContent).toContain('Bearer Token')
+    expect(screen.getByRole('tab', { name: /Body/ }).textContent).toContain('JSON')
+  })
 })

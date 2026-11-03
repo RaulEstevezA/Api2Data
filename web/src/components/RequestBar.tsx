@@ -1,8 +1,10 @@
 import type { FormEvent } from 'react'
 import { HTTP_METHODS, isHttpMethod, type HttpMethod } from '../core/http/methods.ts'
+import { looksLikeCurl } from '../core/import/curl.ts'
 import type { RequestIssue } from '../core/request/build.ts'
 import { useI18n } from '../i18n/useI18n.ts'
 import { IssueList } from './IssueList.tsx'
+import { StatusMessage, type Status } from './StatusMessage.tsx'
 import './RequestBar.css'
 
 /** Method, address and Send: the whole request for most uses. */
@@ -11,6 +13,7 @@ export function RequestBar({
   url,
   sending,
   issues,
+  status,
   onMethod,
   onUrl,
   onSend,
@@ -21,6 +24,8 @@ export function RequestBar({
   sending: boolean
   /** Problems to show under the bar */
   issues: readonly RequestIssue[]
+  /** Result of the last import or save */
+  status: Status | null
   onMethod: (method: HttpMethod) => void
   onUrl: (url: string) => void
   onSend: () => void
@@ -59,6 +64,13 @@ export function RequestBar({
           autoComplete="off"
           autoCapitalize="off"
           onChange={(event) => onUrl(event.target.value)}
+          onPaste={(event) => {
+            // A text field drops line breaks, which multi-line cURL commands need: read what was copied instead
+            const text = event.clipboardData.getData('text')
+            if (!looksLikeCurl(text)) return
+            event.preventDefault()
+            onUrl(text)
+          }}
         />
         <div className="request-bar__actions">
           {sending && (
@@ -71,6 +83,7 @@ export function RequestBar({
           </button>
         </div>
       </div>
+      <StatusMessage status={status} />
       <IssueList issues={issues} />
     </form>
   )

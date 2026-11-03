@@ -6,6 +6,7 @@ import type { JsonErrorInfo, JsonExpected } from '../core/json/parse.ts'
 import type { RequestIssue } from '../core/request/build.ts'
 import type { UrlProblem } from '../core/request/url.ts'
 import type { ExampleId } from '../examples/index.ts'
+import type { CurlNotice } from '../core/import/curl.ts'
 
 /** Number with the language's thousands separator. */
 const en$ = (value: number) => value.toLocaleString('en')
@@ -82,6 +83,51 @@ const en = {
   },
   schemeAdded: (url: string) => `No protocol written: it will be sent to ${url}`,
   fixBeforeSending: 'Fix this before sending:',
+
+  // Import and export
+  openRequest: 'Open',
+  openRequestTitle: 'Open a request saved with Api2Data, or a text file with a cURL command',
+  saveRequest: 'Save',
+  saveRequestTitle: 'Save this request in a file to reopen or share it. Tokens, passwords and keys are not included.',
+  curlImported: 'cURL command imported.',
+  fileOpened: (name: string) => `“${name}” opened.`,
+  fileSaved: (name: string) => `Saved as “${name}”, without credentials.`,
+  curlProblem: (problem: 'notCurl' | 'noUrl' | 'unclosedQuote'): string => {
+    switch (problem) {
+      case 'notCurl':
+        return 'This is not a cURL command.'
+      case 'noUrl':
+        return 'The cURL command has no address.'
+      case 'unclosedQuote':
+        return 'The cURL command has a quote that is not closed: copy it again, complete.'
+    }
+  },
+  curlNotice: (notice: CurlNotice): string => {
+    switch (notice.code) {
+      case 'dataFile':
+        return `The body comes from a file (${notice.option} @…), which cannot be read from here: add it in Body.`
+      case 'multipart':
+        return 'Multipart forms (-F) are not supported: the form fields were left out.'
+      case 'ignored':
+        return `Options that do not apply here were ignored: ${notice.options.join(' ')}`
+      case 'unknownMethod':
+        return `Method ${notice.method} is not supported: choose one in the list.`
+    }
+  },
+  fileProblem: (name: string, problem: 'unreadable' | 'version' | 'notRequest' | 'tooLarge' | 'error'): string => {
+    switch (problem) {
+      case 'unreadable':
+        return `“${name}” is damaged and cannot be read.`
+      case 'version':
+        return `“${name}” was saved by another version of Api2Data and cannot be read.`
+      case 'notRequest':
+        return `“${name}” is not an Api2Data request or a cURL command.`
+      case 'tooLarge':
+        return `“${name}” is larger than 5 MB.`
+      case 'error':
+        return `“${name}” could not be read.`
+    }
+  },
 
   // Request sections
   requestTitle: 'Request',
@@ -304,6 +350,50 @@ const es: Messages = {
   },
   schemeAdded: (url) => `Sin protocolo escrito: se enviará a ${url}`,
   fixBeforeSending: 'Corrige esto antes de enviar:',
+
+  openRequest: 'Abrir',
+  openRequestTitle: 'Abre una petición guardada con Api2Data, o un archivo de texto con un comando cURL',
+  saveRequest: 'Guardar',
+  saveRequestTitle: 'Guarda esta petición en un archivo para reabrirla o compartirla. No incluye tokens, contraseñas ni claves.',
+  curlImported: 'Comando cURL importado.',
+  fileOpened: (name) => `“${name}” abierto.`,
+  fileSaved: (name) => `Guardada como “${name}”, sin credenciales.`,
+  curlProblem: (problem) => {
+    switch (problem) {
+      case 'notCurl':
+        return 'Esto no es un comando cURL.'
+      case 'noUrl':
+        return 'El comando cURL no tiene dirección.'
+      case 'unclosedQuote':
+        return 'El comando cURL tiene unas comillas sin cerrar: vuelve a copiarlo completo.'
+    }
+  },
+  curlNotice: (notice) => {
+    switch (notice.code) {
+      case 'dataFile':
+        return `El body viene de un archivo (${notice.option} @…), que no se puede leer desde aquí: añádelo en Body.`
+      case 'multipart':
+        return 'Los formularios multipart (-F) no se admiten: sus campos se han omitido.'
+      case 'ignored':
+        return `Se han ignorado opciones que aquí no aplican: ${notice.options.join(' ')}`
+      case 'unknownMethod':
+        return `El método ${notice.method} no se admite: elige uno de la lista.`
+    }
+  },
+  fileProblem: (name, problem) => {
+    switch (problem) {
+      case 'unreadable':
+        return `“${name}” está dañado y no se puede leer.`
+      case 'version':
+        return `“${name}” se guardó con otra versión de Api2Data y no se puede leer.`
+      case 'notRequest':
+        return `“${name}” no es una petición de Api2Data ni un comando cURL.`
+      case 'tooLarge':
+        return `“${name}” ocupa más de 5 MB.`
+      case 'error':
+        return `No se ha podido leer “${name}”.`
+    }
+  },
 
   requestTitle: 'Petición',
   sectionsLabel: 'Secciones de la petición',

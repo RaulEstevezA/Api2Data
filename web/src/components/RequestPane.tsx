@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import { activeRows } from '../core/http/keyValue.ts'
 import { allowsBody } from '../core/http/methods.ts'
 import type { KeyValue, RequestDraft } from '../core/http/types.ts'
@@ -29,6 +29,7 @@ export function RequestPane({
   onHeaders,
   onAuth,
   onBody,
+  actions,
 }: {
   draft: RequestDraft
   preparation: Preparation
@@ -36,6 +37,8 @@ export function RequestPane({
   onHeaders: (headers: KeyValue[]) => void
   onAuth: (auth: AuthConfig) => void
   onBody: (body: BodyConfig) => void
+  /** Buttons in the pane header (Open, Save) */
+  actions?: ReactNode
 }) {
   const { t } = useI18n()
   const [section, setSection] = useState<RequestSection>('params')
@@ -71,6 +74,7 @@ export function RequestPane({
   return (
     <Pane
       title={t.requestTitle}
+      actions={actions}
       toolbar={<SectionTabs label={t.sectionsLabel} tabs={tabs} selected={section} onSelect={setSection} idPrefix="request" />}
     >
       <div id="request-panel" className="request-pane" role="tabpanel" aria-labelledby={`request-tab-${section}`}>

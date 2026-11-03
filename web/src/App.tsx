@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
-import { draftReducer, emptyDraft } from './app/draft.ts'
+import { draftReducer, emptyDraft, newRowId } from './app/draft.ts'
 import { useHistory } from './app/useHistory.ts'
 import { useSender } from './app/useSender.ts'
 import { AppFooter } from './components/AppFooter.tsx'
@@ -8,14 +8,19 @@ import { HistoryPanel } from './components/HistoryPanel.tsx'
 import { IntroPanel } from './components/IntroPanel.tsx'
 import { LinksPanel } from './components/LinksPanel.tsx'
 import { RequestBar } from './components/RequestBar.tsx'
+import { RequestFileActions } from './components/RequestFileActions.tsx'
 import { RequestPane } from './components/RequestPane.tsx'
 import { ResponsePane } from './components/ResponsePane.tsx'
+import type { Status } from './components/StatusMessage.tsx'
 import { createFetchTransport } from './core/execute/fetchTransport.ts'
 import { createHistoryStore } from './core/history/store.ts'
+import { looksLikeCurl, parseCurl } from './core/import/curl.ts'
+import { createRequestFile, readRequestFile, requestFileName } from './core/import/requestFile.ts'
 import type { RequestDraft } from './core/http/types.ts'
 import { prepareRequest } from './core/request/build.ts'
 import { EXAMPLES, type ExampleId } from './examples/index.ts'
 import { useI18n } from './i18n/useI18n.ts'
+import { downloadFile } from './utils/download.ts'
 import './App.css'
 
 // Requests go straight from this page to the API; the desktop app will provide its own transport
@@ -49,6 +54,8 @@ export default function App() {
   // Errors under the bar only after trying to send: an address being typed is not yet a mistake
   const [attempted, setAttempted] = useState(false)
   const [tab, setTab] = useState<WorkspaceTab>('request')
+  // Result of the last import or save, shown under the bar until the next change
+  const [status, setStatus] = useState<Status | null>(null)
   const sending = state.status === 'sending'
 
   const submit = useCallback(() => {
@@ -57,6 +64,7 @@ export default function App() {
       return
     }
     setAttempted(false)
+    setStatus(null)
     // On narrow screens the answer is what the user wants to see next
     setTab('response')
     sent.current = { draft, recorded: false }
@@ -85,12 +93,41 @@ export default function App() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [submit, sending])
 
+  /** Replaces the request being edited: an example, a history entry, an opened file or a pasted cURL command. */
+  function load(next: RequestDraft, nextStatus: Status | null = null) {
+    dispatch({ type: 'load', draft: next })
+    setAttempted(false)
+    setStatus(nextStatus)
+    setTab('request')
+  }
+
   function loadExample(id: ExampleId) {
     const example = EXAMPLES.find((candidate) => candidate.id === id)
-    if (!example) return
-    dispatch({ type: 'load', draft: example.draft() })
-    setAttempted(false)
-    setTab('request')
+    if (example) load(example.draft())
+  }
+
+  function changeUrl(url: string) {
+    // A pasted cURL command fills the whole request instead of the address
+    if (looksLikeCurl(url)) {
+      const result = parseCurl(url, newRowId)
+      if (result.ok) load(result.draft, { tone: 'success', text: t.curlImported, details: result.notices.map(t.curlNotice) })
+      else setStatus({ tone: 'error', text: t.curlProblem(result.problem) })
+      return
+    }
+    setStatus(null)
+    dispatch({ type: 'url', url })
+  }
+
+  function openFile(text: string, name: string) {
+    const result = readRequestFile(text, newRowId)
+    if (!result.ok) setStatus({ tone: 'error', text: t.fileProblem(name, result.problem) })
+    else load(result.draft, { tone: 'success', text: t.fileOpened(name), details: result.notices.map(t.curlNotice) })
+  }
+
+  function saveFile() {
+    const name = requestFileName(draft)
+    downloadFile(name, createRequestFile(draft, new Date()), 'application/json')
+    setStatus({ tone: 'success', text: t.fileSaved(name) })
   }
 
   const barIssues = preparation.issues.filter((issue) => (attempted && issue.level === 'error') || issue.code === 'schemeAdded')
@@ -109,8 +146,9 @@ export default function App() {
           url={draft.url}
           sending={sending}
           issues={barIssues}
+          status={status}
           onMethod={(method) => dispatch({ type: 'method', method })}
-          onUrl={(url) => dispatch({ type: 'url', url })}
+          onUrl={changeUrl}
           onSend={submit}
           onCancel={cancel}
         />
@@ -122,11 +160,7 @@ export default function App() {
           onEnabled={history.setEnabled}
           onKeepCredentials={history.setKeepCredentials}
           onDismissNotice={history.dismissNotice}
-          onLoad={(entry) => {
-            dispatch({ type: 'load', draft: entry.draft })
-            setAttempted(false)
-            setTab('request')
-          }}
+          onLoad={(entry) => load(entry.draft)}
           onRemove={history.remove}
           onClear={history.clear}
         />
@@ -152,6 +186,13 @@ export default function App() {
             onHeaders={(headers) => dispatch({ type: 'headers', headers })}
             onAuth={(auth) => dispatch({ type: 'auth', auth })}
             onBody={(body) => dispatch({ type: 'body', body })}
+            actions={
+              <RequestFileActions
+                onOpen={openFile}
+                onOpenError={(name, problem) => setStatus({ tone: 'error', text: t.fileProblem(name, problem) })}
+                onSave={saveFile}
+              />
+            }
           />
           <ResponsePane state={state} />
         </div>
