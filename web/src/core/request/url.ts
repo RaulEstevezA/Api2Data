@@ -34,11 +34,13 @@ export function encodeQueryPart(text: string, isKey: boolean): string {
 }
 
 function serializeQuery(params: readonly KeyValue[]): string {
-  return params
-    .filter((row) => row.enabled && (row.key !== '' || row.value !== ''))
-    // "key=" also when the value is empty: the usual form, and what URLSearchParams writes
-    .map((row) => `${encodeQueryPart(row.key, true)}=${encodeQueryPart(row.value, false)}`)
-    .join('&')
+  return (
+    params
+      .filter((row) => row.enabled && (row.key !== '' || row.value !== ''))
+      // "key=" also when the value is empty: the usual form, and what URLSearchParams writes
+      .map((row) => `${encodeQueryPart(row.key, true)}=${encodeQueryPart(row.value, false)}`)
+      .join('&')
+  )
 }
 
 /** The URL with its query string rebuilt from the enabled params. Used when the table is edited. */

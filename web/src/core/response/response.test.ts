@@ -55,9 +55,16 @@ describe('prettyJson', () => {
 describe('prettyXml', () => {
   it('indents elements and keeps short text inline', () => {
     expect(prettyXml('<?xml version="1.0"?><user id="1"><name>Raúl Estévez</name><tags><tag/><empty></empty></tags></user>')).toBe(
-      ['<?xml version="1.0"?>', '<user id="1">', '  <name>Raúl Estévez</name>', '  <tags>', '    <tag/>', '    <empty></empty>', '  </tags>', '</user>'].join(
-        '\n',
-      ),
+      [
+        '<?xml version="1.0"?>',
+        '<user id="1">',
+        '  <name>Raúl Estévez</name>',
+        '  <tags>',
+        '    <tag/>',
+        '    <empty></empty>',
+        '  </tags>',
+        '</user>',
+      ].join('\n'),
     )
   })
 

@@ -76,7 +76,8 @@ export function viewText(text: string, mediaType: string | null): TextView {
   return viewer.view(text)
 }
 
-const BINARY_TYPES = /^(image|audio|video|font)\/|^application\/(pdf|zip|gzip|x-gzip|x-tar|x-7z-compressed|wasm|vnd\.ms-excel|vnd\.openxmlformats|msword|x-protobuf|protobuf)/
+const BINARY_TYPES =
+  /^(image|audio|video|font)\/|^application\/(pdf|zip|gzip|x-gzip|x-tar|x-7z-compressed|wasm|vnd\.ms-excel|vnd\.openxmlformats|msword|x-protobuf|protobuf)/
 
 /** Whether the body cannot be shown as text: declared as a binary format, or full of control characters. */
 export function isBinary(mediaType: string | null, bytes: Uint8Array): boolean {

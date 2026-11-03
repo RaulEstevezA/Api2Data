@@ -50,11 +50,7 @@ export function createJsonHandoff(content: string, method: HttpMethod, url: stri
 
 /** Leaves the response for Api2Class and opens it in the same tab. Returns false when the browser cannot keep it
  * (storage blocked or full), so the user can be told and nothing is lost. */
-export function openInApi2Class(
-  handoff: JsonHandoff,
-  storage: Pick<Storage, 'setItem'>,
-  navigate: (url: string) => void,
-): boolean {
+export function openInApi2Class(handoff: JsonHandoff, storage: Pick<Storage, 'setItem'>, navigate: (url: string) => void): boolean {
   try {
     storage.setItem(API2CLASS_KEY, JSON.stringify(handoff))
   } catch {

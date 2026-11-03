@@ -23,6 +23,8 @@ export interface Preparation {
   /** null when an error stops the request */
   request: PreparedRequest | null
   issues: RequestIssue[]
+  /** The headers that would be sent, also while an error stops the request, to show the automatic ones */
+  headers: PreparedHeader[]
 }
 
 function headerIssues(headers: readonly PreparedHeader[]): RequestIssue[] {
@@ -59,13 +61,14 @@ export function prepareRequest(draft: RequestDraft): Preparation {
     const bodyIssue = kind.validate(draft.body)
     if (bodyIssue) issues.push({ level: 'error', code: 'body', issue: bodyIssue })
     body = kind.serialize(draft.body)
-    if (body !== null && kind.contentType && !has('Content-Type')) headers.push({ name: 'Content-Type', value: kind.contentType, source: 'body' })
+    if (body !== null && kind.contentType && !has('Content-Type'))
+      headers.push({ name: 'Content-Type', value: kind.contentType, source: 'body' })
   }
 
   issues.push(...headerIssues(headers))
-  if (!resolved.ok || issues.some((issue) => issue.level === 'error')) return { request: null, issues }
+  if (!resolved.ok || issues.some((issue) => issue.level === 'error')) return { request: null, issues, headers }
 
   const url = appendQuery(resolved.url, auth.query)
   if (resolved.schemeAdded) issues.unshift({ level: 'notice', code: 'schemeAdded', url: resolved.url })
-  return { request: { method: draft.method, url, headers, body }, issues }
+  return { request: { method: draft.method, url, headers, body }, issues, headers }
 }

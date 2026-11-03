@@ -52,7 +52,10 @@ describe('fetch transport', () => {
         throw new TypeError('Failed to fetch')
       }),
     )
-    expect(await transport.send(request, new AbortController().signal)).toEqual({ ok: false, failure: { kind: 'blocked', detail: 'Failed to fetch' } })
+    expect(await transport.send(request, new AbortController().signal)).toEqual({
+      ok: false,
+      failure: { kind: 'blocked', detail: 'Failed to fetch' },
+    })
   })
 
   it('reports a cancelled request', async () => {

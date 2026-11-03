@@ -15,13 +15,18 @@ export function createFetchTransport(environment: FetchEnvironment): HttpTranspo
   return {
     async send(request: PreparedRequest, signal: AbortSignal): Promise<SendResult> {
       const failure = (error: unknown) =>
-        classifyFailure(error, { url: request.url, pageProtocol: environment.pageProtocol, online: environment.isOnline(), aborted: signal.aborted })
+        classifyFailure(error, {
+          url: request.url,
+          pageProtocol: environment.pageProtocol,
+          online: environment.isOnline(),
+          aborted: signal.aborted,
+        })
       const started = environment.now()
       let response: Response
       try {
         response = await environment.fetch(request.url, {
           method: request.method,
-          headers: request.headers.map((header) => [header.name, header.value]),
+          headers: request.headers.map((header): [string, string] => [header.name, header.value]),
           body: request.body,
           credentials: 'omit',
           redirect: 'follow',
@@ -32,7 +37,7 @@ export function createFetchTransport(environment: FetchEnvironment): HttpTranspo
         return { ok: false, failure: failure(error) }
       }
 
-      let bytes: Uint8Array
+      let bytes: Uint8Array<ArrayBuffer>
       try {
         bytes = new Uint8Array(await response.arrayBuffer())
       } catch (error) {

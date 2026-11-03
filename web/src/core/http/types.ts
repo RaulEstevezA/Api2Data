@@ -48,7 +48,7 @@ export interface HttpResponse {
   redirected: boolean
   headers: [string, string][]
   /** The body as received, after decompression */
-  bytes: Uint8Array
+  bytes: Uint8Array<ArrayBuffer>
   /** Milliseconds from sending to the end of the body */
   durationMs: number
 }

@@ -24,7 +24,9 @@ export function base64Utf8(text: string): string {
 export const basicAuth: AuthScheme<'basic'> = {
   type: 'basic',
   apply: ({ username, password }) =>
-    username || password ? { headers: [{ name: 'Authorization', value: `Basic ${base64Utf8(`${username}:${password}`)}` }], query: [] } : NOTHING,
+    username || password
+      ? { headers: [{ name: 'Authorization', value: `Basic ${base64Utf8(`${username}:${password}`)}` }], query: [] }
+      : NOTHING,
   isComplete: ({ username }) => username !== '',
 }
 

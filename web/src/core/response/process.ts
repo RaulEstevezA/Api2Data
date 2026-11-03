@@ -16,6 +16,8 @@ export interface ProcessedResponse {
   contentType: ContentType | null
   /** Bytes of the body received by the browser, after decompression */
   size: number
+  /** The body as received, for downloading it */
+  bytes: Uint8Array<ArrayBuffer>
   durationMs: number
   body: ResponseBody
   /** Status line, headers and body as text, for the Raw tab */
@@ -44,6 +46,7 @@ export function processResponse(response: HttpResponse): ProcessedResponse {
     headers: response.headers,
     contentType,
     size: response.bytes.length,
+    bytes: response.bytes,
     durationMs: response.durationMs,
     body,
     raw: [statusLine, ...headerLines, '', rawBody].join('\n'),

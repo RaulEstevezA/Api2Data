@@ -10,7 +10,15 @@ import { appendQuery, encodeQueryPart, paramsFromUrl, parseQuery, resolveUrl, sp
 const row = (id: string, key: string, value: string, enabled = true): KeyValue => ({ id, key, value, enabled })
 
 function draft(overrides: Partial<RequestDraft> = {}): RequestDraft {
-  return { method: 'GET', url: 'https://api.example.com/users', params: [], headers: [], auth: defaultAuth(), body: defaultBody(), ...overrides }
+  return {
+    method: 'GET',
+    url: 'https://api.example.com/users',
+    params: [],
+    headers: [],
+    auth: defaultAuth(),
+    body: defaultBody(),
+    ...overrides,
+  }
 }
 
 describe('url', () => {
@@ -44,7 +52,12 @@ describe('url', () => {
   it('round-trips the URL through the table without changing it', () => {
     let next = 0
     const url = 'https://a.example.com/search?q=caf%C3%A9&tags=a,b&empty=&flag='
-    expect(urlWithParams(url, paramsFromUrl(url, [], () => String(next++)))).toBe(url)
+    expect(
+      urlWithParams(
+        url,
+        paramsFromUrl(url, [], () => String(next++)),
+      ),
+    ).toBe(url)
   })
 
   it('keeps disabled params and existing ids when the URL changes', () => {
@@ -54,7 +67,9 @@ describe('url', () => {
   })
 
   it('appends encoded query parameters', () => {
-    expect(appendQuery('https://x.example.com/a?b=1#f', [{ key: 'api key', value: 'x&y' }])).toBe('https://x.example.com/a?b=1&api%20key=x%26y#f')
+    expect(appendQuery('https://x.example.com/a?b=1#f', [{ key: 'api key', value: 'x&y' }])).toBe(
+      'https://x.example.com/a?b=1&api%20key=x%26y#f',
+    )
     expect(appendQuery('https://x.example.com/a', [{ key: 'k', value: 'v' }])).toBe('https://x.example.com/a?k=v')
   })
 
@@ -84,7 +99,9 @@ describe('headers', () => {
 
 describe('prepareRequest', () => {
   it('sends the enabled headers with a name', () => {
-    const { request } = prepareRequest(draft({ headers: [row('1', 'Accept', 'application/json'), row('2', 'X-Off', '1', false), row('3', '', 'x')] }))
+    const { request } = prepareRequest(
+      draft({ headers: [row('1', 'Accept', 'application/json'), row('2', 'X-Off', '1', false), row('3', '', 'x')] }),
+    )
     expect(request?.headers).toEqual([{ name: 'Accept', value: 'application/json', source: 'user' }])
   })
 
@@ -157,7 +174,12 @@ describe('prepareRequest', () => {
     const body = defaultBody()
     body.mode = 'json'
     body.text.json = '{"a": 1}'
-    expect(prepareRequest(draft({ body })).request).toEqual({ method: 'GET', url: 'https://api.example.com/users', headers: [], body: null })
+    expect(prepareRequest(draft({ body })).request).toEqual({
+      method: 'GET',
+      url: 'https://api.example.com/users',
+      headers: [],
+      body: null,
+    })
   })
 
   it('stops on invalid JSON and says where', () => {
@@ -170,7 +192,11 @@ describe('prepareRequest', () => {
   })
 
   it('stops on headers fetch would reject, and warns about forbidden ones', () => {
-    expect(prepareRequest(draft({ headers: [row('1', 'Bad Name', 'x')] })).issues).toContainEqual({ level: 'error', code: 'headerName', name: 'Bad Name' })
+    expect(prepareRequest(draft({ headers: [row('1', 'Bad Name', 'x')] })).issues).toContainEqual({
+      level: 'error',
+      code: 'headerName',
+      name: 'Bad Name',
+    })
     expect(prepareRequest(draft({ headers: [row('1', 'X-Price', '5 €')] })).request).toBeNull()
     const { request, issues } = prepareRequest(draft({ headers: [row('1', 'Cookie', 'a=1')] }))
     expect(request).not.toBeNull()
