@@ -46,7 +46,7 @@ type WorkspaceTab = 'request' | 'response'
 export default function App() {
   const { t } = useI18n()
   const [draft, dispatch] = useReducer(draftReducer, undefined, emptyDraft)
-  const { state, send, cancel, reset } = useSender(transport)
+  const { state, send, cancel, reset, showPasted } = useSender(transport)
   const history = useHistory(historyStore)
   // The request as it was when sent, recorded in the history once its result arrives
   const sent = useRef<{ draft: RequestDraft; recorded: boolean } | null>(null)
@@ -197,7 +197,7 @@ export default function App() {
               />
             }
           />
-          <ResponsePane state={state} />
+          <ResponsePane state={state} onPaste={(response) => state.status === 'failed' && showPasted(state.request, response)} />
         </div>
         <LinksPanel />
       </main>

@@ -37,6 +37,7 @@
   font-size: var(--font-label);
 }
 
+.response-summary__note,
 .response-summary__redirect {
   color: var(--muted);
   font-size: var(--font-label);

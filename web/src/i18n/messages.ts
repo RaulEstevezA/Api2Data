@@ -249,6 +249,33 @@ const en = {
   search: 'Search',
   searchTitle: 'Search in the response (Ctrl/Cmd+F)',
 
+  // When there is no response: what to do next
+  failureOptions: 'What you can do',
+  curlOptionTitle: 'Send it with curl and paste the answer here',
+  curlOptionText:
+    'curl runs outside the browser, so CORS does not apply. Copy the command, run it in a terminal and paste everything it prints.',
+  copyCurl: 'Copy as cURL',
+  pasteResponse: 'Paste response',
+  pasteLabel: 'Output of curl',
+  pastePlaceholder: 'HTTP/2 200\ncontent-type: application/json\n\n{ … }',
+  showResponse: 'Show response',
+  pasteProblem: (problem: 'empty' | 'noStatus'): string =>
+    problem === 'empty'
+      ? 'Paste the output of the command.'
+      : 'It does not start with the status line (HTTP/…): copy everything curl printed, from the first line. The command copied here includes -i, which prints it.',
+  desktopOptionTitle: 'Use the desktop version',
+  desktopOptionText:
+    'The desktop app sends the requests itself, not through a browser, so CORS does not apply and this request works with Send.',
+  pastedNote: 'Response pasted from curl: the time was not measured here.',
+  notMeasured: 'not measured',
+  downloadDesktop: 'Download for desktop',
+  downloadFor: (platform: string) => `Download for ${platform}`,
+  otherPlatforms: 'Other platforms',
+  otherArchitecture: (architecture: string) => `${architecture} version`,
+  downloadNote: 'Desktop version for Windows, macOS and Linux. It is not signed, so the first time your system will show a warning.',
+  howToOpen: 'How to open it',
+  howToOpenUrl: 'https://github.com/RaulEstevezA/Api2Data/blob/main/desktop/README_en.md#opening-it-the-first-time',
+
   // Response
   responseTitle: 'Response',
   responseEmpty: 'Send a request to see the response here.',
@@ -303,7 +330,7 @@ const en = {
             'The address does not exist or the server cannot be reached.',
             'An extension, a firewall or the network blocks the request.',
           ],
-          tip: 'To tell them apart, try the same request outside the browser (for example with curl). The browser console (F12) shows the exact reason.',
+          tip: 'The browser console (F12) shows the exact reason.',
         }
     }
   },
@@ -538,6 +565,32 @@ const es: Messages = {
   search: 'Buscar',
   searchTitle: 'Buscar en la respuesta (Ctrl/Cmd+F)',
 
+  failureOptions: 'Qué puedes hacer',
+  curlOptionTitle: 'Envíala con curl y pega aquí la respuesta',
+  curlOptionText:
+    'curl se ejecuta fuera del navegador, así que CORS no se aplica. Copia el comando, ejecútalo en una terminal y pega todo lo que devuelva.',
+  copyCurl: 'Copiar como cURL',
+  pasteResponse: 'Pegar respuesta',
+  pasteLabel: 'Salida de curl',
+  pastePlaceholder: 'HTTP/2 200\ncontent-type: application/json\n\n{ … }',
+  showResponse: 'Mostrar respuesta',
+  pasteProblem: (problem) =>
+    problem === 'empty'
+      ? 'Pega la salida del comando.'
+      : 'No empieza por la línea de estado (HTTP/…): copia todo lo que ha devuelto curl, desde la primera línea. El comando copiado aquí incluye -i, que la muestra.',
+  desktopOptionTitle: 'Usa la versión de escritorio',
+  desktopOptionText:
+    'La aplicación de escritorio envía las peticiones ella misma, no a través de un navegador, así que CORS no se aplica y esta petición funciona con Enviar.',
+  pastedNote: 'Respuesta pegada desde curl: el tiempo no se ha medido aquí.',
+  notMeasured: 'sin medir',
+  downloadDesktop: 'Descargar para escritorio',
+  downloadFor: (platform) => `Descargar para ${platform}`,
+  otherPlatforms: 'Otras plataformas',
+  otherArchitecture: (architecture) => `Versión ${architecture}`,
+  downloadNote: 'Versión de escritorio para Windows, macOS y Linux. No está firmada, así que la primera vez el sistema mostrará un aviso.',
+  howToOpen: 'Cómo abrirla',
+  howToOpenUrl: 'https://github.com/RaulEstevezA/Api2Data/blob/main/desktop/README_es.md#abrirla-la-primera-vez',
+
   responseTitle: 'Respuesta',
   responseEmpty: 'Envía una petición para ver aquí la respuesta.',
   responseSending: (method, url) => `Esperando la respuesta a ${method} ${url}…`,
@@ -591,7 +644,7 @@ const es: Messages = {
             'La dirección no existe o no se puede llegar al servidor.',
             'Una extensión, un cortafuegos o la red bloquean la petición.',
           ],
-          tip: 'Para distinguirlas, prueba la misma petición fuera del navegador (por ejemplo con curl). La consola del navegador (F12) muestra el motivo exacto.',
+          tip: 'La consola del navegador (F12) muestra el motivo exacto.',
         }
     }
   },

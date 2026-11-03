@@ -144,4 +144,39 @@ describe('App', () => {
     expect(screen.getByRole('tab', { name: /Authorization/ }).textContent).toContain('Bearer Token')
     expect(screen.getByRole('tab', { name: /Body/ }).textContent).toContain('JSON')
   })
+
+  it('offers to send a blocked request with curl and to paste its output', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => {
+        throw new TypeError('Failed to fetch')
+      }),
+    )
+    const writeText = vi.fn(async () => {})
+    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true })
+    renderApp()
+    fireEvent.change(screen.getByRole('textbox', { name: 'URL' }), {
+      target: { value: 'https://www.aemet.es/xml/municipios/localidad_28079.xml' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: 'Send' }))
+    await waitFor(() => expect(screen.getByText('What you can do')).toBeTruthy())
+    // No desktop release yet: nothing links to it
+    expect(screen.queryByText('Use the desktop version')).toBeNull()
+
+    fireEvent.click(screen.getByRole('button', { name: 'Copy as cURL' }))
+    await waitFor(() => expect(writeText).toHaveBeenCalledWith("curl -i 'https://www.aemet.es/xml/municipios/localidad_28079.xml'"))
+
+    fireEvent.click(screen.getByRole('button', { name: 'Paste response' }))
+    const output = screen.getByRole('textbox', { name: 'Output of curl' })
+    fireEvent.change(output, { target: { value: '{"no": "status line"}' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Show response' }))
+    expect(screen.getByText(/It does not start with the status line/)).toBeTruthy()
+
+    fireEvent.change(output, { target: { value: 'HTTP/2 200\ncontent-type: application/xml\n\n<root><nombre>Madrid</nombre></root>' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Show response' }))
+    await waitFor(() => expect(screen.getByText('200 OK')).toBeTruthy())
+    expect(screen.getByText('not measured')).toBeTruthy()
+    expect(screen.getByText('Response pasted from curl: the time was not measured here.')).toBeTruthy()
+    await waitFor(() => expect(document.querySelector('.cm-content')?.textContent).toContain('<nombre>Madrid</nombre>'))
+  })
 })

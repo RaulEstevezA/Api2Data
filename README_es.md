@@ -26,7 +26,12 @@ Escribe la URL  →  Configura la petición (si hace falta)  →  Enviar  →  R
 
 Api2Data se ejecuta en tu navegador y envía las peticiones con `fetch`, así que el navegador aplica sus reglas: la API tiene que permitir peticiones desde otras webs (cabecera `Access-Control-Allow-Origin`). Muchas APIs públicas lo hacen; otras solo aceptan peticiones desde su propia web o desde servidores.
 
-Cuando una petición se bloquea, el navegador no da detalles a la página, así que Api2Data enumera las causas probables: la API no permite otras webs (o no con este método o estas cabeceras), la dirección no existe o no se puede alcanzar, o una extensión o la red la bloquean. **Que una petición se bloquee no significa que la API esté caída.** Probar la misma petición con curl (sección Código) permite distinguirlas.
+Cuando una petición se bloquea, el navegador no da detalles a la página, así que Api2Data enumera las causas probables: la API no permite otras webs (o no con este método o estas cabeceras), la dirección no existe o no se puede alcanzar, o una extensión o la red la bloquean. **Que una petición se bloquee no significa que la API esté caída.**
+
+Cuando el navegador bloquea una petición, el error ofrece dos formas de obtener la respuesta igualmente:
+
+- **curl**: «Copiar como cURL» copia el comando (con `-i`, para que muestre el estado y las cabeceras). Ejecútalo en una terminal y pega lo que devuelva con «Pegar respuesta»: se muestra como cualquier otra respuesta (estado, cabeceras, body formateado), salvo el tiempo, que Api2Data no ha medido.
+- **La versión de escritorio**, cuando esté publicada: envía las peticiones ella misma, no a través de un navegador, así que CORS no se aplica. El botón de descarga corresponde a tu sistema y tu procesador.
 
 Api2Data no usa un proxy a propósito: vería tus peticiones, tokens y respuestas.
 

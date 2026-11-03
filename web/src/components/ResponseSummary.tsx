@@ -18,7 +18,7 @@ export function ResponseSummary({ response }: { response: ProcessedResponse }) {
         </div>
         <div>
           <dt>{t.timeLabel}</dt>
-          <dd className="mono">{formatDuration(response.durationMs, language)}</dd>
+          <dd className="mono">{response.durationMs === null ? t.notMeasured : formatDuration(response.durationMs, language)}</dd>
         </div>
         <div>
           <dt>{t.sizeLabel}</dt>
@@ -31,6 +31,7 @@ export function ResponseSummary({ response }: { response: ProcessedResponse }) {
           <dd className="mono">{response.contentType?.mediaType ?? t.noContentType}</dd>
         </div>
       </dl>
+      {response.origin === 'pasted' && <p className="response-summary__note">{t.pastedNote}</p>}
       {response.redirected && (
         <p className="response-summary__redirect">
           {t.redirectedTo} <span className="mono">{response.url}</span>

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { HttpTransport, SendFailure } from '../core/execute/transport.ts'
-import type { PreparedRequest } from '../core/http/types.ts'
+import type { HttpResponse, PreparedRequest } from '../core/http/types.ts'
 import { processResponse, type ProcessedResponse } from '../core/response/process.ts'
 
 export type SendState =
@@ -43,7 +43,12 @@ export function useSender(transport: HttpTransport) {
     [transport],
   )
 
+  /** Shows a response obtained outside the browser (pasted from curl) for the request that failed. */
+  const showPasted = useCallback((request: PreparedRequest, response: HttpResponse) => {
+    setState({ status: 'done', request, response: processResponse(response) })
+  }, [])
+
   useEffect(() => () => controller.current?.abort(), [])
 
-  return { state, send, cancel, reset }
+  return { state, send, cancel, reset, showPasted }
 }

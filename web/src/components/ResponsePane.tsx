@@ -1,10 +1,11 @@
 import { openSearchPanel } from '@codemirror/search'
 import type { EditorView } from '@codemirror/view'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import type { SendState } from '../app/useSender.ts'
+import type { HttpResponse } from '../core/http/types.ts'
 import type { ProcessedResponse } from '../core/response/process.ts'
+import { useCopyFeedback } from '../hooks/useCopyFeedback.ts'
 import { useI18n } from '../i18n/useI18n.ts'
-import { copyText } from '../utils/clipboard.ts'
 import { downloadFile } from '../utils/download.ts'
 import { CodeEditor } from './CodeEditor.tsx'
 import { Pane } from './Pane.tsx'
@@ -57,23 +58,13 @@ function ResponseBodyView({ response, onView }: { response: ProcessedResponse; o
   )
 }
 
-export function ResponsePane({ state }: { state: SendState }) {
+export function ResponsePane({ state, onPaste }: { state: SendState; onPaste: (response: HttpResponse) => void }) {
   const { t } = useI18n()
   const [section, setSection] = useState<ResponseSection>('body')
-  const [copied, setCopied] = useState(false)
-  const copiedTimer = useRef<number | undefined>(undefined)
+  const { copied, copy } = useCopyFeedback()
   const response = state.status === 'done' ? state.response : null
   // The editor shown (body or raw), to open its search panel
   const [editor, setEditor] = useState<EditorView | null>(null)
-
-  useEffect(() => () => window.clearTimeout(copiedTimer.current), [])
-
-  async function copy() {
-    if (!response || !(await copyText(copyable(response, section)))) return
-    setCopied(true)
-    window.clearTimeout(copiedTimer.current)
-    copiedTimer.current = window.setTimeout(() => setCopied(false), 2000)
-  }
 
   const tabs = [
     { id: 'body' as const, label: t.responseTabs.body },
@@ -106,7 +97,12 @@ export function ResponsePane({ state }: { state: SendState }) {
               >
                 {t.search}
               </button>
-              <button type="button" className="button" disabled={!copyable(response, section)} onClick={copy}>
+              <button
+                type="button"
+                className="button"
+                disabled={!copyable(response, section)}
+                onClick={() => copy(copyable(response, section))}
+              >
                 {copied ? t.copied : t.copy}
               </button>
               <button
@@ -129,7 +125,7 @@ export function ResponsePane({ state }: { state: SendState }) {
         {state.status === 'sending' && (
           <p className="response-pane__message">{t.responseSending(state.request.method, state.request.url)}</p>
         )}
-        {state.status === 'failed' && <RequestFailure failure={state.failure} url={state.request.url} />}
+        {state.status === 'failed' && <RequestFailure failure={state.failure} request={state.request} onPaste={onPaste} />}
         {response && (
           <div id="response-panel" className="response-pane__section" role="tabpanel" aria-labelledby={`response-tab-${section}`}>
             {section === 'body' && <ResponseBodyView response={response} onView={setEditor} />}

@@ -1,9 +1,15 @@
+.request-failure__wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  padding: var(--space-16);
+}
+
 /* Error box (personal_web_style components/alerts.md, 6. Caja de error) */
 .request-failure {
   display: flex;
   flex-direction: column;
   gap: var(--space-8);
-  margin: var(--space-16);
   padding: var(--space-16) var(--space-20);
   border: 1px solid var(--danger);
   border-radius: var(--radius);
@@ -32,4 +38,60 @@
   padding: var(--space-16);
   color: var(--muted);
   font-size: var(--font-small);
+}
+
+.request-failure__options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.request-failure__options-title {
+  color: var(--muted);
+  font-size: var(--font-label);
+  font-weight: var(--weight-semibold);
+}
+
+/* Each way out is a group inside the pane (personal_web_style components/cards.md) */
+.failure-option {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-12) 14px;
+  border: var(--border-line);
+  border-radius: var(--radius);
+  background: var(--page-bg);
+}
+
+.failure-option__title {
+  margin: 0;
+  font-size: var(--font-small);
+  font-weight: var(--weight-semibold);
+}
+
+.failure-option__text {
+  color: var(--muted);
+  font-size: var(--font-label);
+  line-height: var(--leading-code);
+}
+
+.failure-option__paste {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.failure-option__textarea {
+  min-height: 160px;
+  resize: vertical;
+  white-space: pre;
+}
+
+.failure-option__error {
+  color: var(--danger);
+  font-size: var(--font-label);
+}
+
+.failure-option__actions {
+  justify-content: flex-end;
 }

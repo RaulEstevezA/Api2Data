@@ -11,6 +11,7 @@ Notable changes to Api2Data. The format follows [Keep a Changelog](https://keepa
 - Web: checks before sending: invalid addresses, JSON bodies with the line and column of the error, headers the browser would reject or drop, incomplete authorization.
 - Web: responses with status, time, size and type; the body formatted and highlighted (JSON, XML), headers and raw text; search, copy and download.
 - Web: clear explanations when there is no response, including CORS, no connection and http addresses from an https page.
+- Web: when the browser blocks a request, copy it as a cURL command and paste curl's output to see the response; the desktop download, for the visitor's system, appears there once the desktop version is released.
 - Web: local history of sent requests, without credentials unless chosen explicitly.
 - Web: paste a cURL command in the URL bar to fill the request; save and open requests as `.api2data.json` files, without credentials.
 - Web: the request as cURL, JavaScript (fetch) or Python (requests).

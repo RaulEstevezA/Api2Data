@@ -26,7 +26,12 @@ Write the URL  →  Set up the request (if needed)  →  Send  →  Inspect the 
 
 Api2Data runs in your browser and sends requests with `fetch`, so the browser applies its rules: the API has to allow requests from other websites (the `Access-Control-Allow-Origin` header). Many public APIs do; others only accept requests from their own site or from servers.
 
-When a request is blocked, the browser gives no details to the page, so Api2Data lists the likely causes: the API does not allow other websites (or not this method or these headers), the address does not exist or cannot be reached, or an extension or the network blocks it. **A blocked request does not mean the API is down.** Trying the same request with curl (Code section) tells them apart.
+When a request is blocked, the browser gives no details to the page, so Api2Data lists the likely causes: the API does not allow other websites (or not this method or these headers), the address does not exist or cannot be reached, or an extension or the network blocks it. **A blocked request does not mean the API is down.**
+
+When the browser blocks a request, the error offers two ways to get the response anyway:
+
+- **curl**: "Copy as cURL" copies the command (with `-i`, so it prints the status and the headers). Run it in a terminal and paste its output with "Paste response": it is shown like any other response (status, headers, formatted body), except for the time, which Api2Data did not measure.
+- **The desktop version**, once it is released: it sends the requests itself, not through a browser, so CORS does not apply. The download button matches your system and processor.
 
 Api2Data does not use a proxy on purpose: it would see your requests, tokens and responses.
 

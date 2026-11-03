@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
 import { CODE_TARGETS, findCodeTarget } from '../core/codegen/registry.ts'
 import type { PreparedRequest } from '../core/http/types.ts'
+import { useCopyFeedback } from '../hooks/useCopyFeedback.ts'
 import { useStoredState } from '../hooks/useStoredState.ts'
 import { useI18n } from '../i18n/useI18n.ts'
-import { copyText } from '../utils/clipboard.ts'
 import { CodeEditor } from './CodeEditor.tsx'
 import './CodeSnippet.css'
 
@@ -12,19 +11,9 @@ export function CodeSnippet({ request, withCredentials }: { request: PreparedReq
   const { t } = useI18n()
   // Only the choice of language is remembered
   const [targetId, setTargetId] = useStoredState('api2data.codeTarget', () => CODE_TARGETS[0].id)
-  const [copied, setCopied] = useState(false)
-  const timer = useRef<number | undefined>(undefined)
+  const { copied, copy } = useCopyFeedback()
   const target = findCodeTarget(targetId)
   const code = request ? target.generate(request) : ''
-
-  useEffect(() => () => window.clearTimeout(timer.current), [])
-
-  async function copy() {
-    if (!(await copyText(code))) return
-    setCopied(true)
-    window.clearTimeout(timer.current)
-    timer.current = window.setTimeout(() => setCopied(false), 2000)
-  }
 
   return (
     <div className="code-snippet">
@@ -39,7 +28,7 @@ export function CodeSnippet({ request, withCredentials }: { request: PreparedReq
             ))}
           </select>
         </label>
-        <button type="button" className="button" disabled={!code} onClick={copy}>
+        <button type="button" className="button" disabled={!code} onClick={() => copy(code)}>
           {copied ? t.copied : t.copy}
         </button>
       </div>
