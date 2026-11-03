@@ -160,8 +160,8 @@ describe('App', () => {
     })
     fireEvent.click(screen.getByRole('button', { name: 'Send' }))
     await waitFor(() => expect(screen.getByText('What you can do')).toBeTruthy())
-    // No desktop release yet: nothing links to it
-    expect(screen.queryByText('Use the desktop version')).toBeNull()
+    // The desktop version avoids CORS: its download is offered for the visitor's system
+    expect(screen.getByText('Use the desktop version')).toBeTruthy()
 
     fireEvent.click(screen.getByRole('button', { name: 'Copy as cURL' }))
     await waitFor(() => expect(writeText).toHaveBeenCalledWith("curl -i 'https://www.aemet.es/xml/municipios/localidad_28079.xml'"))

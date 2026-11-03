@@ -2,9 +2,9 @@
 // so these links always point to the latest release.
 export const RELEASES_URL = 'https://github.com/RaulEstevezA/Api2Data/releases/latest'
 
-/** Whether the desktop version has a release. Until then nothing links to it (personal_web_style: nothing links to an
- * address that does not answer yet); set it to true with the first release. */
-export const DESKTOP_RELEASED = false
+/** Whether the download of the desktop version is offered (error box when the browser blocks a request, links under
+ * the workspace). Its links point to the latest release, published by .github/workflows/release-desktop.yml. */
+export const DESKTOP_RELEASED = true
 
 export type DesktopPlatform = 'macOS' | 'Windows' | 'Linux'
 export type Architecture = 'x64' | 'arm64'

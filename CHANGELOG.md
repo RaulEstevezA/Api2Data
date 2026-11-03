@@ -12,7 +12,8 @@ Notable changes to Api2Data, the web and the desktop version together. The forma
 - Web: responses with status, time, size and type; the body formatted and highlighted (JSON, XML), headers and raw text; search, copy and download.
 - Web: when the server does not say the charset, the one the content declares is used (XML prolog, HTML `<meta charset>`, byte order mark), so accents in Latin-1 responses such as AEMET's are read correctly.
 - Web: clear explanations when there is no response, including CORS, no connection and http addresses from an https page.
-- Web: when the browser blocks a request, copy it as a cURL command and paste curl's output to see the response; the desktop download, for the visitor's system, appears there once the desktop version is released.
+- Web: when the browser blocks a request, copy it as a cURL command and paste curl's output to see the response; or download the desktop version, offered for the visitor's system, which has no CORS.
+- Web: download of the desktop version under the workspace, for the visitor's system and processor.
 - Web: local history of sent requests, without credentials unless chosen explicitly.
 - Web: paste a cURL command in the URL bar to fill the request; save and open requests as `.api2data.json` files, without credentials.
 - Web: the request as cURL, JavaScript (fetch) or Python (requests).

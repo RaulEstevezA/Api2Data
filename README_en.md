@@ -31,7 +31,7 @@ When a request is blocked, the browser gives no details to the page, so Api2Data
 When the browser blocks a request, the error offers two ways to get the response anyway:
 
 - **curl**: "Copy as cURL" copies the command (with `-i`, so it prints the status and the headers). Run it in a terminal and paste its output with "Paste response": it is shown like any other response (status, headers, formatted body), except for the time, which Api2Data did not measure.
-- **The [desktop version](./desktop/README_en.md)**: it sends the requests itself, not through a browser, so CORS does not apply. The download button (shown once the first desktop release is published) matches your system and processor.
+- **The [desktop version](./desktop/README_en.md)**: it sends the requests itself, not through a browser, so CORS does not apply. The download button matches your system and processor.
 
 Api2Data does not use a proxy on purpose: it would see your requests, tokens and responses.
 
