@@ -1,0 +1,52 @@
+.kv {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.kv__row {
+  display: grid;
+  grid-template-columns: 15px minmax(0, 2fr) minmax(0, 3fr) auto;
+  grid-template-areas: 'check key value remove';
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.kv__check {
+  grid-area: check;
+  width: 15px;
+}
+
+.kv__key {
+  grid-area: key;
+}
+
+.kv__value {
+  grid-area: value;
+}
+
+.kv__remove {
+  grid-area: remove;
+  min-width: 4.5rem;
+}
+
+/* A switched-off row stays readable and editable; the unchecked box says it will not be sent */
+.kv__row--off .kv__key,
+.kv__row--off .kv__value {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+@media (max-width: 600px) {
+  .kv {
+    gap: var(--space-12);
+  }
+
+  .kv__row {
+    grid-template-columns: 15px minmax(0, 1fr) auto;
+    grid-template-areas:
+      'check key remove'
+      '. value value';
+    gap: var(--space-6) var(--space-8);
+  }
+}

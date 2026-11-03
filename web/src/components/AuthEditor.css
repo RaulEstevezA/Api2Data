@@ -1,0 +1,30 @@
+.auth {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  max-width: 560px;
+}
+
+.auth__type {
+  max-width: 260px;
+}
+
+.auth__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.auth__note {
+  color: var(--muted);
+  font-size: var(--font-label);
+}
+
+.secret {
+  display: flex;
+  gap: var(--gap-controls);
+}
+
+.secret__input {
+  flex: 1;
+}

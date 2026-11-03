@@ -1,0 +1,57 @@
+.request-bar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  margin-top: var(--space-16);
+  padding: var(--space-16);
+}
+
+.request-bar__row {
+  display: flex;
+  gap: var(--gap-controls);
+}
+
+.request-bar__method {
+  flex: none;
+  width: 7.5rem;
+  font-family: var(--mono);
+  font-weight: var(--weight-semibold);
+}
+
+.request-bar__url {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--font-body);
+}
+
+.request-bar__actions {
+  display: flex;
+  gap: var(--gap-controls);
+}
+
+.request-bar__send {
+  min-width: 6.5rem;
+}
+
+@media (max-width: 600px) {
+  .request-bar__row {
+    flex-wrap: wrap;
+  }
+
+  /* Method and address share the first line; Send gets the full width below, easy to reach */
+  .request-bar__method {
+    width: 6.5rem;
+  }
+
+  .request-bar__url {
+    flex-basis: calc(100% - 6.5rem - var(--gap-controls));
+  }
+
+  .request-bar__actions {
+    flex: 1 1 100%;
+  }
+
+  .request-bar__actions > .button {
+    flex: 1;
+  }
+}

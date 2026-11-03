@@ -1,0 +1,52 @@
+/* File tabs of Api2Class (personal_web_style components/tabs.md) with the interface font: they name sections,
+   not files */
+.section-tabs {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-8) 0;
+  border-bottom: var(--border-line);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.section-tabs__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  margin-bottom: -1px;
+  padding: var(--space-6) var(--space-12);
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  background: none;
+  color: var(--muted);
+  font-size: var(--font-label);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.section-tabs__tab:hover {
+  color: var(--text);
+}
+
+.section-tabs__tab[aria-selected='true'] {
+  border-color: var(--border);
+  background: var(--page-bg);
+  color: var(--text);
+}
+
+.section-tabs__badge {
+  padding: 0 6px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-raised);
+  color: var(--muted);
+  font-size: var(--font-caption);
+  font-weight: var(--weight-semibold);
+}
+
+.section-tabs__badge--warning {
+  background: var(--warning-soft);
+  color: var(--warning);
+}
