@@ -1,0 +1,58 @@
+[
+ {
+  "args": [
+   "image/png",
+   [
+    120
+   ]
+  ],
+  "result": true
+ },
+ {
+  "args": [
+   null,
+   [
+    137,
+    80,
+    0,
+    71
+   ]
+  ],
+  "result": true
+ },
+ {
+  "args": [
+   "image/svg+xml",
+   [
+    60,
+    115
+   ]
+  ],
+  "result": false
+ },
+ {
+  "args": [
+   null,
+   [
+    104,
+    105,
+    10
+   ]
+  ],
+  "result": false
+ },
+ {
+  "args": [
+   null,
+   []
+  ],
+  "result": false
+ },
+ {
+  "args": [
+   "application/pdf",
+   []
+  ],
+  "result": true
+ }
+]

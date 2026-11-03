@@ -1,0 +1,30 @@
+[
+ {
+  "args": [
+   {
+    "method": "GET",
+    "url": "https://a.example.com",
+    "headers": [],
+    "body": null
+   },
+   {
+    "include": true
+   }
+  ],
+  "result": "curl -i 'https://a.example.com'"
+ },
+ {
+  "args": [
+   {
+    "method": "HEAD",
+    "url": "https://a.example.com",
+    "headers": [],
+    "body": null
+   },
+   {
+    "include": true
+   }
+  ],
+  "result": "curl --head 'https://a.example.com'"
+ }
+]

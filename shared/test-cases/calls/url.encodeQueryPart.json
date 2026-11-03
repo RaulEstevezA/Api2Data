@@ -1,0 +1,51 @@
+[
+ {
+  "args": [
+   "a b&c#d",
+   false
+  ],
+  "result": "a%20b%26c%23d"
+ },
+ {
+  "args": [
+   "50%",
+   false
+  ],
+  "result": "50%25"
+ },
+ {
+  "args": [
+   "already%20encoded",
+   false
+  ],
+  "result": "already%20encoded"
+ },
+ {
+  "args": [
+   "a=b",
+   true
+  ],
+  "result": "a%3Db"
+ },
+ {
+  "args": [
+   "a=b",
+   false
+  ],
+  "result": "a=b"
+ },
+ {
+  "args": [
+   "%zz%4",
+   true
+  ],
+  "result": "%25zz%254"
+ },
+ {
+  "args": [
+   "café ☕",
+   false
+  ],
+  "result": "café%20☕"
+ }
+]

@@ -1,0 +1,32 @@
+[
+ {
+  "args": [
+   "X-Api-Key"
+  ],
+  "result": true
+ },
+ {
+  "args": [
+   "Bad Name"
+  ],
+  "result": false
+ },
+ {
+  "args": [
+   ""
+  ],
+  "result": false
+ },
+ {
+  "args": [
+   "ñ"
+  ],
+  "result": false
+ },
+ {
+  "args": [
+   "a:b"
+  ],
+  "result": false
+ }
+]

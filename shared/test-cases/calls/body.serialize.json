@@ -1,0 +1,132 @@
+[
+ {
+  "args": [
+   "none",
+   {
+    "mode": "none",
+    "text": {
+     "json": "",
+     "text": "",
+     "xml": ""
+    },
+    "form": []
+   }
+  ],
+  "result": null
+ },
+ {
+  "args": [
+   "json",
+   {
+    "mode": "json",
+    "text": {
+     "json": "{\"id\": 12345678901234567890}",
+     "text": "",
+     "xml": ""
+    },
+    "form": []
+   }
+  ],
+  "result": "{\"id\": 12345678901234567890}"
+ },
+ {
+  "args": [
+   "json",
+   {
+    "mode": "json",
+    "text": {
+     "json": "  ",
+     "text": "",
+     "xml": ""
+    },
+    "form": []
+   }
+  ],
+  "result": null
+ },
+ {
+  "args": [
+   "text",
+   {
+    "mode": "text",
+    "text": {
+     "json": "",
+     "text": "",
+     "xml": ""
+    },
+    "form": []
+   }
+  ],
+  "result": null
+ },
+ {
+  "args": [
+   "text",
+   {
+    "mode": "text",
+    "text": {
+     "json": "",
+     "text": " x ",
+     "xml": ""
+    },
+    "form": []
+   }
+  ],
+  "result": " x "
+ },
+ {
+  "args": [
+   "xml",
+   {
+    "mode": "xml",
+    "text": {
+     "json": "",
+     "text": "",
+     "xml": "<a/>"
+    },
+    "form": []
+   }
+  ],
+  "result": "<a/>"
+ },
+ {
+  "args": [
+   "form",
+   {
+    "mode": "form",
+    "text": {
+     "json": "",
+     "text": "",
+     "xml": ""
+    },
+    "form": [
+     {
+      "id": "1",
+      "key": "name",
+      "value": "Raúl Estévez",
+      "enabled": true
+     },
+     {
+      "id": "2",
+      "key": "skip",
+      "value": "x",
+      "enabled": false
+     },
+     {
+      "id": "3",
+      "key": "a&b",
+      "value": "c=d e",
+      "enabled": true
+     },
+     {
+      "id": "4",
+      "key": "",
+      "value": "v",
+      "enabled": true
+     }
+    ]
+   }
+  ],
+  "result": "name=Ra%C3%BAl+Est%C3%A9vez&a%26b=c%3Dd+e"
+ }
+]

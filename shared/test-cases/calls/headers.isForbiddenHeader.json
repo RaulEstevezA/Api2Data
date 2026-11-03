@@ -1,0 +1,32 @@
+[
+ {
+  "args": [
+   "Cookie"
+  ],
+  "result": true
+ },
+ {
+  "args": [
+   "sec-fetch-mode"
+  ],
+  "result": true
+ },
+ {
+  "args": [
+   "Proxy-Authorization"
+  ],
+  "result": true
+ },
+ {
+  "args": [
+   "Accept"
+  ],
+  "result": false
+ },
+ {
+  "args": [
+   " HOST "
+  ],
+  "result": true
+ }
+]

@@ -1,0 +1,32 @@
+[
+ {
+  "args": [
+   101
+  ],
+  "result": "informational"
+ },
+ {
+  "args": [
+   204
+  ],
+  "result": "success"
+ },
+ {
+  "args": [
+   304
+  ],
+  "result": "redirect"
+ },
+ {
+  "args": [
+   422
+  ],
+  "result": "clientError"
+ },
+ {
+  "args": [
+   503
+  ],
+  "result": "serverError"
+ }
+]

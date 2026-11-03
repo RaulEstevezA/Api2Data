@@ -1,0 +1,38 @@
+[
+ {
+  "args": [
+   "curl 'a b' \"c \\\"d\\\" \\$e\" f\\ g \\\n  $'h\\ni\\'j' x\"y\"'z'"
+  ],
+  "result": [
+   "curl",
+   "a b",
+   "c \"d\" $e",
+   "f g",
+   "h\ni'j",
+   "xyz"
+  ]
+ },
+ {
+  "args": [
+   "curl 'open"
+  ],
+  "result": null
+ },
+ {
+  "args": [
+   "curl"
+  ],
+  "result": [
+   "curl"
+  ]
+ },
+ {
+  "args": [
+   "curl $'\\x41\\u00e9'"
+  ],
+  "result": [
+   "curl",
+   "Aé"
+  ]
+ }
+]

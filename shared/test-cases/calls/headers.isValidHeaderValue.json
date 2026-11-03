@@ -1,0 +1,32 @@
+[
+ {
+  "args": [
+   "café"
+  ],
+  "result": true
+ },
+ {
+  "args": [
+   "token €"
+  ],
+  "result": false
+ },
+ {
+  "args": [
+   "a\nb"
+  ],
+  "result": false
+ },
+ {
+  "args": [
+   ""
+  ],
+  "result": true
+ },
+ {
+  "args": [
+   "tab\there"
+  ],
+  "result": true
+ }
+]

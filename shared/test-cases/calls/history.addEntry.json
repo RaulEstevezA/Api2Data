@@ -1,0 +1,477 @@
+[
+ {
+  "args": [
+   [
+    {
+     "id": "e",
+     "sentAt": "2026-11-03T10:00:00.000Z",
+     "draft": {
+      "method": "GET",
+      "url": "https://a.example.com/1",
+      "params": [],
+      "headers": [],
+      "auth": {
+       "type": "none",
+       "settings": {
+        "none": {},
+        "bearer": {
+         "token": ""
+        },
+        "basic": {
+         "username": "",
+         "password": ""
+        },
+        "apiKey": {
+         "name": "X-API-Key",
+         "value": "",
+         "location": "header"
+        }
+       }
+      },
+      "body": {
+       "mode": "none",
+       "text": {
+        "json": "",
+        "text": "",
+        "xml": ""
+       },
+       "form": []
+      }
+     },
+     "outcome": {
+      "status": 200
+     },
+     "withCredentials": false
+    }
+   ],
+   {
+    "id": "e",
+    "sentAt": "2026-11-03T10:00:00.000Z",
+    "draft": {
+     "method": "GET",
+     "url": "https://a.example.com/1",
+     "params": [],
+     "headers": [],
+     "auth": {
+      "type": "none",
+      "settings": {
+       "none": {},
+       "bearer": {
+        "token": ""
+       },
+       "basic": {
+        "username": "",
+        "password": ""
+       },
+       "apiKey": {
+        "name": "X-API-Key",
+        "value": "",
+        "location": "header"
+       }
+      }
+     },
+     "body": {
+      "mode": "none",
+      "text": {
+       "json": "",
+       "text": "",
+       "xml": ""
+      },
+      "form": []
+     }
+    },
+    "outcome": {
+     "status": 404
+    },
+    "withCredentials": false
+   }
+  ],
+  "result": [
+   {
+    "id": "e",
+    "sentAt": "2026-11-03T10:00:00.000Z",
+    "draft": {
+     "method": "GET",
+     "url": "https://a.example.com/1",
+     "params": [],
+     "headers": [],
+     "auth": {
+      "type": "none",
+      "settings": {
+       "none": {},
+       "bearer": {
+        "token": ""
+       },
+       "basic": {
+        "username": "",
+        "password": ""
+       },
+       "apiKey": {
+        "name": "X-API-Key",
+        "value": "",
+        "location": "header"
+       }
+      }
+     },
+     "body": {
+      "mode": "none",
+      "text": {
+       "json": "",
+       "text": "",
+       "xml": ""
+      },
+      "form": []
+     }
+    },
+    "outcome": {
+     "status": 404
+    },
+    "withCredentials": false
+   }
+  ]
+ },
+ {
+  "args": [
+   [
+    {
+     "id": "e",
+     "sentAt": "2026-11-03T10:00:00.000Z",
+     "draft": {
+      "method": "GET",
+      "url": "https://a.example.com/1",
+      "params": [],
+      "headers": [],
+      "auth": {
+       "type": "none",
+       "settings": {
+        "none": {},
+        "bearer": {
+         "token": ""
+        },
+        "basic": {
+         "username": "",
+         "password": ""
+        },
+        "apiKey": {
+         "name": "X-API-Key",
+         "value": "",
+         "location": "header"
+        }
+       }
+      },
+      "body": {
+       "mode": "none",
+       "text": {
+        "json": "",
+        "text": "",
+        "xml": ""
+       },
+       "form": []
+      }
+     },
+     "outcome": {
+      "status": 200
+     },
+     "withCredentials": false
+    }
+   ],
+   {
+    "id": "e",
+    "sentAt": "2026-11-03T10:00:00.000Z",
+    "draft": {
+     "method": "GET",
+     "url": "https://a.example.com/2",
+     "params": [],
+     "headers": [],
+     "auth": {
+      "type": "none",
+      "settings": {
+       "none": {},
+       "bearer": {
+        "token": ""
+       },
+       "basic": {
+        "username": "",
+        "password": ""
+       },
+       "apiKey": {
+        "name": "X-API-Key",
+        "value": "",
+        "location": "header"
+       }
+      }
+     },
+     "body": {
+      "mode": "none",
+      "text": {
+       "json": "",
+       "text": "",
+       "xml": ""
+      },
+      "form": []
+     }
+    },
+    "outcome": {
+     "status": 200
+    },
+    "withCredentials": false
+   }
+  ],
+  "result": [
+   {
+    "id": "e",
+    "sentAt": "2026-11-03T10:00:00.000Z",
+    "draft": {
+     "method": "GET",
+     "url": "https://a.example.com/2",
+     "params": [],
+     "headers": [],
+     "auth": {
+      "type": "none",
+      "settings": {
+       "none": {},
+       "bearer": {
+        "token": ""
+       },
+       "basic": {
+        "username": "",
+        "password": ""
+       },
+       "apiKey": {
+        "name": "X-API-Key",
+        "value": "",
+        "location": "header"
+       }
+      }
+     },
+     "body": {
+      "mode": "none",
+      "text": {
+       "json": "",
+       "text": "",
+       "xml": ""
+      },
+      "form": []
+     }
+    },
+    "outcome": {
+     "status": 200
+    },
+    "withCredentials": false
+   },
+   {
+    "id": "e",
+    "sentAt": "2026-11-03T10:00:00.000Z",
+    "draft": {
+     "method": "GET",
+     "url": "https://a.example.com/1",
+     "params": [],
+     "headers": [],
+     "auth": {
+      "type": "none",
+      "settings": {
+       "none": {},
+       "bearer": {
+        "token": ""
+       },
+       "basic": {
+        "username": "",
+        "password": ""
+       },
+       "apiKey": {
+        "name": "X-API-Key",
+        "value": "",
+        "location": "header"
+       }
+      }
+     },
+     "body": {
+      "mode": "none",
+      "text": {
+       "json": "",
+       "text": "",
+       "xml": ""
+      },
+      "form": []
+     }
+    },
+    "outcome": {
+     "status": 200
+    },
+    "withCredentials": false
+   }
+  ]
+ },
+ {
+  "args": [
+   [
+    {
+     "id": "e",
+     "sentAt": "2026-11-03T10:00:00.000Z",
+     "draft": {
+      "method": "GET",
+      "url": "https://a.example.com/1",
+      "params": [],
+      "headers": [],
+      "auth": {
+       "type": "none",
+       "settings": {
+        "none": {},
+        "bearer": {
+         "token": ""
+        },
+        "basic": {
+         "username": "",
+         "password": ""
+        },
+        "apiKey": {
+         "name": "X-API-Key",
+         "value": "",
+         "location": "header"
+        }
+       }
+      },
+      "body": {
+       "mode": "none",
+       "text": {
+        "json": "",
+        "text": "",
+        "xml": ""
+       },
+       "form": []
+      }
+     },
+     "outcome": {
+      "status": 200
+     },
+     "withCredentials": false
+    }
+   ],
+   {
+    "id": "e",
+    "sentAt": "2026-11-03T10:00:00.000Z",
+    "draft": {
+     "method": "GET",
+     "url": "https://a.example.com/1",
+     "params": [],
+     "headers": [],
+     "auth": {
+      "type": "none",
+      "settings": {
+       "none": {},
+       "bearer": {
+        "token": ""
+       },
+       "basic": {
+        "username": "",
+        "password": ""
+       },
+       "apiKey": {
+        "name": "X-API-Key",
+        "value": "",
+        "location": "header"
+       }
+      }
+     },
+     "body": {
+      "mode": "none",
+      "text": {
+       "json": "",
+       "text": "",
+       "xml": ""
+      },
+      "form": []
+     }
+    },
+    "outcome": {
+     "status": 200
+    },
+    "withCredentials": true
+   }
+  ],
+  "result": [
+   {
+    "id": "e",
+    "sentAt": "2026-11-03T10:00:00.000Z",
+    "draft": {
+     "method": "GET",
+     "url": "https://a.example.com/1",
+     "params": [],
+     "headers": [],
+     "auth": {
+      "type": "none",
+      "settings": {
+       "none": {},
+       "bearer": {
+        "token": ""
+       },
+       "basic": {
+        "username": "",
+        "password": ""
+       },
+       "apiKey": {
+        "name": "X-API-Key",
+        "value": "",
+        "location": "header"
+       }
+      }
+     },
+     "body": {
+      "mode": "none",
+      "text": {
+       "json": "",
+       "text": "",
+       "xml": ""
+      },
+      "form": []
+     }
+    },
+    "outcome": {
+     "status": 200
+    },
+    "withCredentials": true
+   },
+   {
+    "id": "e",
+    "sentAt": "2026-11-03T10:00:00.000Z",
+    "draft": {
+     "method": "GET",
+     "url": "https://a.example.com/1",
+     "params": [],
+     "headers": [],
+     "auth": {
+      "type": "none",
+      "settings": {
+       "none": {},
+       "bearer": {
+        "token": ""
+       },
+       "basic": {
+        "username": "",
+        "password": ""
+       },
+       "apiKey": {
+        "name": "X-API-Key",
+        "value": "",
+        "location": "header"
+       }
+      }
+     },
+     "body": {
+      "mode": "none",
+      "text": {
+       "json": "",
+       "text": "",
+       "xml": ""
+      },
+      "form": []
+     }
+    },
+    "outcome": {
+     "status": 200
+    },
+    "withCredentials": false
+   }
+  ]
+ }
+]

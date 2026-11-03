@@ -1,0 +1,166 @@
+[
+ {
+  "args": [
+   null
+  ],
+  "result": null
+ },
+ {
+  "args": [
+   {
+    "method": "FETCH",
+    "url": "x"
+   }
+  ],
+  "result": null
+ },
+ {
+  "args": [
+   {
+    "method": "GET",
+    "url": "x",
+    "headers": "nope"
+   }
+  ],
+  "result": null
+ },
+ {
+  "args": [
+   {
+    "method": "POST",
+    "url": "https://a.example.com",
+    "body": {
+     "mode": "json",
+     "text": {
+      "json": "{}"
+     }
+    },
+    "auth": {
+     "type": "weird"
+    }
+   }
+  ],
+  "result": {
+   "method": "POST",
+   "url": "https://a.example.com",
+   "params": [],
+   "headers": [],
+   "auth": {
+    "type": "none",
+    "settings": {
+     "none": {},
+     "bearer": {
+      "token": ""
+     },
+     "basic": {
+      "username": "",
+      "password": ""
+     },
+     "apiKey": {
+      "name": "X-API-Key",
+      "value": "",
+      "location": "header"
+     }
+    }
+   },
+   "body": {
+    "mode": "json",
+    "text": {
+     "json": "{}",
+     "text": "",
+     "xml": ""
+    },
+    "form": []
+   }
+  }
+ },
+ {
+  "args": [
+   {
+    "method": "GET",
+    "url": "https://a.example.com?x=1",
+    "params": [
+     {
+      "key": "x",
+      "value": "1"
+     },
+     {
+      "key": "d",
+      "value": "2",
+      "enabled": false
+     }
+    ],
+    "headers": [
+     {
+      "key": "A",
+      "value": "b",
+      "enabled": true
+     }
+    ],
+    "auth": {
+     "type": "apiKey",
+     "settings": {
+      "apiKey": {
+       "name": "k",
+       "value": "v",
+       "location": "query"
+      }
+     }
+    }
+   }
+  ],
+  "result": {
+   "method": "GET",
+   "url": "https://a.example.com?x=1",
+   "params": [
+    {
+     "id": "id-1",
+     "key": "x",
+     "value": "1",
+     "enabled": true
+    },
+    {
+     "id": "id-2",
+     "key": "d",
+     "value": "2",
+     "enabled": false
+    }
+   ],
+   "headers": [
+    {
+     "id": "id-3",
+     "key": "A",
+     "value": "b",
+     "enabled": true
+    }
+   ],
+   "auth": {
+    "type": "apiKey",
+    "settings": {
+     "none": {},
+     "bearer": {
+      "token": ""
+     },
+     "basic": {
+      "username": "",
+      "password": ""
+     },
+     "apiKey": {
+      "name": "k",
+      "value": "v",
+      "location": "query"
+     }
+    }
+   },
+   "body": {
+    "mode": "none",
+    "text": {
+     "json": "",
+     "text": "",
+     "xml": ""
+    },
+    "form": []
+   }
+  }
+ }
+]

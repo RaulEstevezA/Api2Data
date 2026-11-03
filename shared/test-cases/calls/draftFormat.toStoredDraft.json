@@ -1,0 +1,111 @@
+[
+ {
+  "args": [
+   {
+    "method": "POST",
+    "url": "https://api.example.com/users",
+    "params": [
+     {
+      "id": "1",
+      "key": "a",
+      "value": "1",
+      "enabled": true
+     }
+    ],
+    "headers": [
+     {
+      "id": "2",
+      "key": "H",
+      "value": "v",
+      "enabled": false
+     }
+    ],
+    "auth": {
+     "type": "none",
+     "settings": {
+      "none": {},
+      "bearer": {
+       "token": ""
+      },
+      "basic": {
+       "username": "",
+       "password": ""
+      },
+      "apiKey": {
+       "name": "X-API-Key",
+       "value": "",
+       "location": "header"
+      }
+     }
+    },
+    "body": {
+     "mode": "form",
+     "text": {
+      "json": "",
+      "text": "",
+      "xml": ""
+     },
+     "form": [
+      {
+       "id": "3",
+       "key": "f",
+       "value": "g",
+       "enabled": true
+      }
+     ]
+    }
+   }
+  ],
+  "result": {
+   "method": "POST",
+   "url": "https://api.example.com/users",
+   "params": [
+    {
+     "key": "a",
+     "value": "1",
+     "enabled": true
+    }
+   ],
+   "headers": [
+    {
+     "key": "H",
+     "value": "v",
+     "enabled": false
+    }
+   ],
+   "auth": {
+    "type": "none",
+    "settings": {
+     "none": {},
+     "bearer": {
+      "token": ""
+     },
+     "basic": {
+      "username": "",
+      "password": ""
+     },
+     "apiKey": {
+      "name": "X-API-Key",
+      "value": "",
+      "location": "header"
+     }
+    }
+   },
+   "body": {
+    "mode": "form",
+    "text": {
+     "json": "",
+     "text": "",
+     "xml": ""
+    },
+    "form": [
+     {
+      "key": "f",
+      "value": "g",
+      "enabled": true
+     }
+    ]
+   }
+  }
+ }
+]

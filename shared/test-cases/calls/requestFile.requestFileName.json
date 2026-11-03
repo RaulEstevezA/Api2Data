@@ -1,0 +1,154 @@
+[
+ {
+  "args": [
+   {
+    "method": "GET",
+    "url": "https://api.example.com/users/7",
+    "params": [],
+    "headers": [],
+    "auth": {
+     "type": "none",
+     "settings": {
+      "none": {},
+      "bearer": {
+       "token": ""
+      },
+      "basic": {
+       "username": "",
+       "password": ""
+      },
+      "apiKey": {
+       "name": "X-API-Key",
+       "value": "",
+       "location": "header"
+      }
+     }
+    },
+    "body": {
+     "mode": "none",
+     "text": {
+      "json": "",
+      "text": "",
+      "xml": ""
+     },
+     "form": []
+    }
+   }
+  ],
+  "result": "7.api2data.json"
+ },
+ {
+  "args": [
+   {
+    "method": "GET",
+    "url": "not a url",
+    "params": [],
+    "headers": [],
+    "auth": {
+     "type": "none",
+     "settings": {
+      "none": {},
+      "bearer": {
+       "token": ""
+      },
+      "basic": {
+       "username": "",
+       "password": ""
+      },
+      "apiKey": {
+       "name": "X-API-Key",
+       "value": "",
+       "location": "header"
+      }
+     }
+    },
+    "body": {
+     "mode": "none",
+     "text": {
+      "json": "",
+      "text": "",
+      "xml": ""
+     },
+     "form": []
+    }
+   }
+  ],
+  "result": "request.api2data.json"
+ },
+ {
+  "args": [
+   {
+    "method": "GET",
+    "url": "https://api.example.com/",
+    "params": [],
+    "headers": [],
+    "auth": {
+     "type": "none",
+     "settings": {
+      "none": {},
+      "bearer": {
+       "token": ""
+      },
+      "basic": {
+       "username": "",
+       "password": ""
+      },
+      "apiKey": {
+       "name": "X-API-Key",
+       "value": "",
+       "location": "header"
+      }
+     }
+    },
+    "body": {
+     "mode": "none",
+     "text": {
+      "json": "",
+      "text": "",
+      "xml": ""
+     },
+     "form": []
+    }
+   }
+  ],
+  "result": "api.example.com.api2data.json"
+ },
+ {
+  "args": [
+   {
+    "method": "GET",
+    "url": "https://api.example.com/a b/ñandú.json",
+    "params": [],
+    "headers": [],
+    "auth": {
+     "type": "none",
+     "settings": {
+      "none": {},
+      "bearer": {
+       "token": ""
+      },
+      "basic": {
+       "username": "",
+       "password": ""
+      },
+      "apiKey": {
+       "name": "X-API-Key",
+       "value": "",
+       "location": "header"
+      }
+     }
+    },
+    "body": {
+     "mode": "none",
+     "text": {
+      "json": "",
+      "text": "",
+      "xml": ""
+     },
+     "form": []
+    }
+   }
+  ],
+  "result": "ñandú.json.api2data.json"
+ }
+]

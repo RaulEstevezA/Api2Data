@@ -1,0 +1,130 @@
+[
+ {
+  "args": [
+   null
+  ],
+  "result": {
+   "ok": true,
+   "entries": []
+  }
+ },
+ {
+  "args": [
+   "{"
+  ],
+  "result": {
+   "ok": false,
+   "reason": "damaged"
+  }
+ },
+ {
+  "args": [
+   "{\"version\":2,\"entries\":[]}"
+  ],
+  "result": {
+   "ok": false,
+   "reason": "version"
+  }
+ },
+ {
+  "args": [
+   "{\"version\":1,\"entries\":\"x\"}"
+  ],
+  "result": {
+   "ok": false,
+   "reason": "damaged"
+  }
+ },
+ {
+  "args": [
+   "{\"version\":1,\"entries\":[{\"bad\":true},{\"sentAt\":\"2026-11-03T10:00:00.000Z\",\"draft\":{\"method\":\"GET\",\"url\":\"https://a.example.com\"},\"outcome\":{\"status\":200},\"withCredentials\":true},{\"sentAt\":\"nope\",\"draft\":{\"method\":\"GET\",\"url\":\"x\"},\"outcome\":{\"status\":1}},{\"sentAt\":\"2026-11-03T10:00:00Z\",\"draft\":{\"method\":\"GET\",\"url\":\"x\"},\"outcome\":{\"failure\":\"offline\"}}]}"
+  ],
+  "result": {
+   "ok": true,
+   "entries": [
+    {
+     "id": "id-1",
+     "sentAt": "2026-11-03T10:00:00.000Z",
+     "draft": {
+      "method": "GET",
+      "url": "https://a.example.com",
+      "params": [],
+      "headers": [],
+      "auth": {
+       "type": "none",
+       "settings": {
+        "none": {},
+        "bearer": {
+         "token": ""
+        },
+        "basic": {
+         "username": "",
+         "password": ""
+        },
+        "apiKey": {
+         "name": "X-API-Key",
+         "value": "",
+         "location": "header"
+        }
+       }
+      },
+      "body": {
+       "mode": "none",
+       "text": {
+        "json": "",
+        "text": "",
+        "xml": ""
+       },
+       "form": []
+      }
+     },
+     "outcome": {
+      "status": 200
+     },
+     "withCredentials": true
+    },
+    {
+     "id": "id-2",
+     "sentAt": "2026-11-03T10:00:00Z",
+     "draft": {
+      "method": "GET",
+      "url": "x",
+      "params": [],
+      "headers": [],
+      "auth": {
+       "type": "none",
+       "settings": {
+        "none": {},
+        "bearer": {
+         "token": ""
+        },
+        "basic": {
+         "username": "",
+         "password": ""
+        },
+        "apiKey": {
+         "name": "X-API-Key",
+         "value": "",
+         "location": "header"
+        }
+       }
+      },
+      "body": {
+       "mode": "none",
+       "text": {
+        "json": "",
+        "text": "",
+        "xml": ""
+       },
+       "form": []
+      }
+     },
+     "outcome": {
+      "failure": "offline"
+     },
+     "withCredentials": false
+    }
+   ]
+  }
+ }
+]

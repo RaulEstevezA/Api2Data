@@ -1,0 +1,94 @@
+[
+ {
+  "args": [
+   "https://x.example.com/?page=3&size=10",
+   [
+    {
+     "id": "a",
+     "key": "page",
+     "value": "1",
+     "enabled": true
+    },
+    {
+     "id": "b",
+     "key": "debug",
+     "value": "true",
+     "enabled": false
+    }
+   ]
+  ],
+  "result": [
+   {
+    "id": "a",
+    "key": "page",
+    "value": "3",
+    "enabled": true
+   },
+   {
+    "id": "id-1",
+    "key": "size",
+    "value": "10",
+    "enabled": true
+   },
+   {
+    "id": "b",
+    "key": "debug",
+    "value": "true",
+    "enabled": false
+   }
+  ]
+ },
+ {
+  "args": [
+   "https://a.example.com/search?q=caf%C3%A9&tags=a,b&empty=&flag",
+   []
+  ],
+  "result": [
+   {
+    "id": "id-1",
+    "key": "q",
+    "value": "caf%C3%A9",
+    "enabled": true
+   },
+   {
+    "id": "id-2",
+    "key": "tags",
+    "value": "a,b",
+    "enabled": true
+   },
+   {
+    "id": "id-3",
+    "key": "empty",
+    "value": "",
+    "enabled": true
+   },
+   {
+    "id": "id-4",
+    "key": "flag",
+    "value": "",
+    "enabled": true
+   }
+  ]
+ },
+ {
+  "args": [
+   "https://a.example.com",
+   [
+    {
+     "id": "z",
+     "key": "x",
+     "value": "1",
+     "enabled": false
+    }
+   ]
+  ],
+  "result": [
+   {
+    "id": "z",
+    "key": "x",
+    "value": "1",
+    "enabled": false
+   }
+  ]
+ }
+]

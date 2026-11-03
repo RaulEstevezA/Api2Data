@@ -1,0 +1,95 @@
+[
+ {
+  "args": [
+   "json",
+   {
+    "mode": "json",
+    "text": {
+     "json": "{\"a\": 1,}",
+     "text": "",
+     "xml": ""
+    },
+    "form": []
+   }
+  ],
+  "result": {
+   "code": "invalidJson",
+   "error": {
+    "code": "trailingComma",
+    "line": 1,
+    "column": 9,
+    "found": "}",
+    "key": "a"
+   }
+  }
+ },
+ {
+  "args": [
+   "json",
+   {
+    "mode": "json",
+    "text": {
+     "json": "",
+     "text": "",
+     "xml": ""
+    },
+    "form": []
+   }
+  ],
+  "result": null
+ },
+ {
+  "args": [
+   "json",
+   {
+    "mode": "json",
+    "text": {
+     "json": "{'a': 1}",
+     "text": "",
+     "xml": ""
+    },
+    "form": []
+   }
+  ],
+  "result": {
+   "code": "invalidJson",
+   "error": {
+    "code": "unexpectedCharacter",
+    "line": 1,
+    "column": 2,
+    "found": "'",
+    "expected": "key"
+   }
+  }
+ },
+ {
+  "args": [
+   "json",
+   {
+    "mode": "json",
+    "text": {
+     "json": "{\"a\": 1}",
+     "text": "",
+     "xml": ""
+    },
+    "form": []
+   }
+  ],
+  "result": null
+ },
+ {
+  "args": [
+   "text",
+   {
+    "mode": "text",
+    "text": {
+     "json": "",
+     "text": "{",
+     "xml": ""
+    },
+    "form": []
+   }
+  ],
+  "result": null
+ }
+]

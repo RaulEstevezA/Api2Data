@@ -1,0 +1,117 @@
+[
+ {
+  "args": [
+   "{\"a\":1}",
+   "application/vnd.api+json"
+  ],
+  "result": {
+   "kind": "json",
+   "language": "json",
+   "raw": "{\"a\":1}",
+   "pretty": "{\n  \"a\": 1\n}"
+  }
+ },
+ {
+  "args": [
+   "<a/>",
+   "application/atom+xml"
+  ],
+  "result": {
+   "kind": "xml",
+   "language": "xml",
+   "raw": "<a/>",
+   "pretty": "<a/>"
+  }
+ },
+ {
+  "args": [
+   "<p>hi</p>",
+   "text/html"
+  ],
+  "result": {
+   "kind": "html",
+   "language": null,
+   "raw": "<p>hi</p>",
+   "pretty": "<p>hi</p>"
+  }
+ },
+ {
+  "args": [
+   "[1, 2]",
+   "text/plain"
+  ],
+  "result": {
+   "kind": "json",
+   "language": "json",
+   "raw": "[1, 2]",
+   "pretty": "[\n  1,\n  2\n]"
+  }
+ },
+ {
+  "args": [
+   "<?xml version=\"1.0\"?><a/>",
+   null
+  ],
+  "result": {
+   "kind": "xml",
+   "language": "xml",
+   "raw": "<?xml version=\"1.0\"?><a/>",
+   "pretty": "<?xml version=\"1.0\"?>\n<a/>"
+  }
+ },
+ {
+  "args": [
+   "hello",
+   null
+  ],
+  "result": {
+   "kind": "text",
+   "language": null,
+   "raw": "hello",
+   "pretty": "hello"
+  }
+ },
+ {
+  "args": [
+   "{\"a\":",
+   "application/json"
+  ],
+  "result": {
+   "kind": "json",
+   "language": "json",
+   "raw": "{\"a\":",
+   "pretty": "{\"a\":",
+   "invalidJson": {
+    "code": "unexpectedEnd",
+    "line": 1,
+    "column": 6,
+    "expected": "value",
+    "key": "a"
+   }
+  }
+ },
+ {
+  "args": [
+   "<!DOCTYPE html><html></html>",
+   null
+  ],
+  "result": {
+   "kind": "html",
+   "language": null,
+   "raw": "<!DOCTYPE html><html></html>",
+   "pretty": "<!DOCTYPE html><html></html>"
+  }
+ },
+ {
+  "args": [
+   "a,b\n1,2",
+   "text/csv"
+  ],
+  "result": {
+   "kind": "text",
+   "language": null,
+   "raw": "a,b\n1,2",
+   "pretty": "a,b\n1,2"
+  }
+ }
+]

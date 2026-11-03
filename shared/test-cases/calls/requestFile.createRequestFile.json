@@ -1,0 +1,48 @@
+[
+ {
+  "args": [
+   {
+    "method": "PATCH",
+    "url": "https://api.example.com/users/7",
+    "params": [],
+    "headers": [
+     {
+      "id": "h",
+      "key": "X-Trace",
+      "value": "1",
+      "enabled": false
+     }
+    ],
+    "auth": {
+     "type": "bearer",
+     "settings": {
+      "none": {},
+      "bearer": {
+       "token": "secret"
+      },
+      "basic": {
+       "username": "",
+       "password": ""
+      },
+      "apiKey": {
+       "name": "X-API-Key",
+       "value": "",
+       "location": "header"
+      }
+     }
+    },
+    "body": {
+     "mode": "json",
+     "text": {
+      "json": "{\"a\":1}",
+      "text": "",
+      "xml": ""
+     },
+     "form": []
+    }
+   },
+   "2026-11-03T10:00:00.000Z"
+  ],
+  "result": "{\n  \"format\": \"api2data-request\",\n  \"version\": 1,\n  \"exportedAt\": \"2026-11-03T10:00:00.000Z\",\n  \"request\": {\n    \"method\": \"PATCH\",\n    \"url\": \"https://api.example.com/users/7\",\n    \"params\": [],\n    \"headers\": [\n      {\n        \"key\": \"X-Trace\",\n        \"value\": \"1\",\n        \"enabled\": false\n      }\n    ],\n    \"auth\": {\n      \"type\": \"bearer\",\n      \"settings\": {\n        \"none\": {},\n        \"bearer\": {\n          \"token\": \"\"\n        },\n        \"basic\": {\n          \"username\": \"\",\n          \"password\": \"\"\n        },\n        \"apiKey\": {\n          \"name\": \"X-API-Key\",\n          \"value\": \"\",\n          \"location\": \"header\"\n        }\n      }\n    },\n    \"body\": {\n      \"mode\": \"json\",\n      \"text\": {\n        \"json\": \"{\\\"a\\\":1}\",\n        \"text\": \"\",\n        \"xml\": \"\"\n      },\n      \"form\": []\n    }\n  }\n}\n"
+ }
+]

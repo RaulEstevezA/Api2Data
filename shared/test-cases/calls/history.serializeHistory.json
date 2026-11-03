@@ -1,0 +1,105 @@
+[
+ {
+  "args": [
+   [
+    {
+     "id": "e",
+     "sentAt": "2026-11-03T10:00:00.000Z",
+     "draft": {
+      "method": "POST",
+      "url": "https://api.example.com/users",
+      "params": [
+       {
+        "id": "p",
+        "key": "debug",
+        "value": "1",
+        "enabled": false
+       }
+      ],
+      "headers": [],
+      "auth": {
+       "type": "none",
+       "settings": {
+        "none": {},
+        "bearer": {
+         "token": ""
+        },
+        "basic": {
+         "username": "",
+         "password": ""
+        },
+        "apiKey": {
+         "name": "X-API-Key",
+         "value": "",
+         "location": "header"
+        }
+       }
+      },
+      "body": {
+       "mode": "form",
+       "text": {
+        "json": "",
+        "text": "",
+        "xml": ""
+       },
+       "form": [
+        {
+         "id": "f",
+         "key": "name",
+         "value": "Raúl Estévez",
+         "enabled": true
+        }
+       ]
+      }
+     },
+     "outcome": {
+      "status": 200
+     },
+     "withCredentials": false
+    },
+    {
+     "id": "x",
+     "sentAt": "2026-11-03T11:00:00.000Z",
+     "draft": {
+      "method": "GET",
+      "url": "https://api.example.com/users",
+      "params": [],
+      "headers": [],
+      "auth": {
+       "type": "none",
+       "settings": {
+        "none": {},
+        "bearer": {
+         "token": ""
+        },
+        "basic": {
+         "username": "",
+         "password": ""
+        },
+        "apiKey": {
+         "name": "X-API-Key",
+         "value": "",
+         "location": "header"
+        }
+       }
+      },
+      "body": {
+       "mode": "none",
+       "text": {
+        "json": "",
+        "text": "",
+        "xml": ""
+       },
+       "form": []
+      }
+     },
+     "outcome": {
+      "failure": "blocked"
+     },
+     "withCredentials": false
+    }
+   ]
+  ],
+  "result": "{\"version\":1,\"entries\":[{\"sentAt\":\"2026-11-03T10:00:00.000Z\",\"draft\":{\"method\":\"POST\",\"url\":\"https://api.example.com/users\",\"params\":[{\"key\":\"debug\",\"value\":\"1\",\"enabled\":false}],\"headers\":[],\"auth\":{\"type\":\"none\",\"settings\":{\"none\":{},\"bearer\":{\"token\":\"\"},\"basic\":{\"username\":\"\",\"password\":\"\"},\"apiKey\":{\"name\":\"X-API-Key\",\"value\":\"\",\"location\":\"header\"}}},\"body\":{\"mode\":\"form\",\"text\":{\"json\":\"\",\"text\":\"\",\"xml\":\"\"},\"form\":[{\"key\":\"name\",\"value\":\"Raúl Estévez\",\"enabled\":true}]}},\"outcome\":{\"status\":200},\"withCredentials\":false},{\"sentAt\":\"2026-11-03T11:00:00.000Z\",\"draft\":{\"method\":\"GET\",\"url\":\"https://api.example.com/users\",\"params\":[],\"headers\":[],\"auth\":{\"type\":\"none\",\"settings\":{\"none\":{},\"bearer\":{\"token\":\"\"},\"basic\":{\"username\":\"\",\"password\":\"\"},\"apiKey\":{\"name\":\"X-API-Key\",\"value\":\"\",\"location\":\"header\"}}},\"body\":{\"mode\":\"none\",\"text\":{\"json\":\"\",\"text\":\"\",\"xml\":\"\"},\"form\":[]}},\"outcome\":{\"failure\":\"blocked\"},\"withCredentials\":false}]}"
+ }
+]

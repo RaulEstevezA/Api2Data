@@ -1,0 +1,28 @@
+[
+ {
+  "args": [
+   404
+  ],
+  "result": "Not Found"
+ },
+ {
+  "args": [
+   200,
+   "Fine"
+  ],
+  "result": "Fine"
+ },
+ {
+  "args": [
+   299
+  ],
+  "result": ""
+ },
+ {
+  "args": [
+   418,
+   "  "
+  ],
+  "result": "I'm a teapot"
+ }
+]

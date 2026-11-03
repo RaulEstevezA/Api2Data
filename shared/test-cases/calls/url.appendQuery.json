@@ -1,0 +1,45 @@
+[
+ {
+  "args": [
+   "https://x.example.com/a?b=1#f",
+   [
+    {
+     "key": "api key",
+     "value": "x&y"
+    }
+   ]
+  ],
+  "result": "https://x.example.com/a?b=1&api%20key=x%26y#f"
+ },
+ {
+  "args": [
+   "https://x.example.com/a",
+   [
+    {
+     "key": "k",
+     "value": "v"
+    }
+   ]
+  ],
+  "result": "https://x.example.com/a?k=v"
+ },
+ {
+  "args": [
+   "https://x.example.com/a",
+   []
+  ],
+  "result": "https://x.example.com/a"
+ },
+ {
+  "args": [
+   "https://x.example.com/a?",
+   [
+    {
+     "key": "ñ",
+     "value": "😀 ~!*()'"
+    }
+   ]
+  ],
+  "result": "https://x.example.com/a?%C3%B1=%F0%9F%98%80%20~!*()'"
+ }
+]

@@ -1,0 +1,69 @@
+[
+ {
+  "args": [
+   "https://a.example.com/x?old=1#top",
+   [
+    {
+     "id": "1",
+     "key": "page",
+     "value": "2",
+     "enabled": true
+    },
+    {
+     "id": "2",
+     "key": "q",
+     "value": "red shoes",
+     "enabled": true
+    },
+    {
+     "id": "3",
+     "key": "debug",
+     "value": "true",
+     "enabled": false
+    },
+    {
+     "id": "4",
+     "key": "flag",
+     "value": "",
+     "enabled": true
+    }
+   ]
+  ],
+  "result": "https://a.example.com/x?page=2&q=red%20shoes&flag=#top"
+ },
+ {
+  "args": [
+   "https://a.example.com/x?old=1",
+   []
+  ],
+  "result": "https://a.example.com/x"
+ },
+ {
+  "args": [
+   "https://a.example.com/x",
+   [
+    {
+     "id": "1",
+     "key": "",
+     "value": "only value",
+     "enabled": true
+    }
+   ]
+  ],
+  "result": "https://a.example.com/x?=only%20value"
+ },
+ {
+  "args": [
+   "",
+   [
+    {
+     "id": "1",
+     "key": "a",
+     "value": "1",
+     "enabled": true
+    }
+   ]
+  ],
+  "result": "?a=1"
+ }
+]

@@ -1,0 +1,44 @@
+[
+ {
+  "args": [
+   "Authorization"
+  ],
+  "result": true
+ },
+ {
+  "args": [
+   "x-api-key"
+  ],
+  "result": true
+ },
+ {
+  "args": [
+   "key"
+  ],
+  "result": true
+ },
+ {
+  "args": [
+   "monkey"
+  ],
+  "result": false
+ },
+ {
+  "args": [
+   "access_token"
+  ],
+  "result": true
+ },
+ {
+  "args": [
+   "Accept"
+  ],
+  "result": false
+ },
+ {
+  "args": [
+   "ClientSecret"
+  ],
+  "result": true
+ }
+]

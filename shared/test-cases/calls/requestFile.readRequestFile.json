@@ -1,0 +1,144 @@
+[
+ {
+  "args": [
+   "{\"format\":\"api2data-request\",\"version\":1,\"request\":{\"method\":\"PATCH\",\"url\":\"https://a.example.com/u?x=1\",\"params\":[{\"key\":\"x\",\"value\":\"1\",\"enabled\":true},{\"key\":\"off\",\"value\":\"2\",\"enabled\":false}],\"headers\":[{\"key\":\"X-Trace\",\"value\":\"1\",\"enabled\":false}],\"auth\":{\"type\":\"bearer\",\"settings\":{}},\"body\":{\"mode\":\"json\",\"text\":{\"json\":\"{\\\"a\\\":1}\",\"text\":\"\",\"xml\":\"\"},\"form\":[]}}}"
+  ],
+  "result": {
+   "ok": true,
+   "draft": {
+    "method": "PATCH",
+    "url": "https://a.example.com/u?x=1",
+    "params": [
+     {
+      "id": "id-1",
+      "key": "x",
+      "value": "1",
+      "enabled": true
+     },
+     {
+      "id": "id-2",
+      "key": "off",
+      "value": "2",
+      "enabled": false
+     }
+    ],
+    "headers": [
+     {
+      "id": "id-3",
+      "key": "X-Trace",
+      "value": "1",
+      "enabled": false
+     }
+    ],
+    "auth": {
+     "type": "bearer",
+     "settings": {
+      "none": {},
+      "bearer": {
+       "token": ""
+      },
+      "basic": {
+       "username": "",
+       "password": ""
+      },
+      "apiKey": {
+       "name": "X-API-Key",
+       "value": "",
+       "location": "header"
+      }
+     }
+    },
+    "body": {
+     "mode": "json",
+     "text": {
+      "json": "{\"a\":1}",
+      "text": "",
+      "xml": ""
+     },
+     "form": []
+    }
+   },
+   "source": "file",
+   "notices": []
+  }
+ },
+ {
+  "args": [
+   "curl https://a.example.com"
+  ],
+  "result": {
+   "ok": true,
+   "draft": {
+    "method": "GET",
+    "url": "https://a.example.com",
+    "params": [],
+    "headers": [],
+    "auth": {
+     "type": "none",
+     "settings": {
+      "none": {},
+      "bearer": {
+       "token": ""
+      },
+      "basic": {
+       "username": "",
+       "password": ""
+      },
+      "apiKey": {
+       "name": "X-API-Key",
+       "value": "",
+       "location": "header"
+      }
+     }
+    },
+    "body": {
+     "mode": "none",
+     "text": {
+      "json": "",
+      "text": "",
+      "xml": ""
+     },
+     "form": []
+    }
+   },
+   "source": "curl",
+   "notices": []
+  }
+ },
+ {
+  "args": [
+   "{\"format\":\"api2data-request\",\"version\":9}"
+  ],
+  "result": {
+   "ok": false,
+   "problem": "version"
+  }
+ },
+ {
+  "args": [
+   "{\"other\":true}"
+  ],
+  "result": {
+   "ok": false,
+   "problem": "notRequest"
+  }
+ },
+ {
+  "args": [
+   "hello"
+  ],
+  "result": {
+   "ok": false,
+   "problem": "notRequest"
+  }
+ },
+ {
+  "args": [
+   "curl 'x"
+  ],
+  "result": {
+   "ok": false,
+   "problem": "unreadable"
+  }
+ }
+]

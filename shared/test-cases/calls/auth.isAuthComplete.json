@@ -1,0 +1,117 @@
+[
+ {
+  "args": [
+   {
+    "type": "none",
+    "settings": {
+     "none": {},
+     "bearer": {
+      "token": ""
+     },
+     "basic": {
+      "username": "",
+      "password": ""
+     },
+     "apiKey": {
+      "name": "X-API-Key",
+      "value": "",
+      "location": "header"
+     }
+    }
+   }
+  ],
+  "result": true
+ },
+ {
+  "args": [
+   {
+    "type": "bearer",
+    "settings": {
+     "none": {},
+     "bearer": {
+      "token": ""
+     },
+     "basic": {
+      "username": "",
+      "password": ""
+     },
+     "apiKey": {
+      "name": "X-API-Key",
+      "value": "",
+      "location": "header"
+     }
+    }
+   }
+  ],
+  "result": false
+ },
+ {
+  "args": [
+   {
+    "type": "bearer",
+    "settings": {
+     "none": {},
+     "bearer": {
+      "token": "t"
+     },
+     "basic": {
+      "username": "",
+      "password": ""
+     },
+     "apiKey": {
+      "name": "X-API-Key",
+      "value": "",
+      "location": "header"
+     }
+    }
+   }
+  ],
+  "result": true
+ },
+ {
+  "args": [
+   {
+    "type": "basic",
+    "settings": {
+     "none": {},
+     "bearer": {
+      "token": ""
+     },
+     "basic": {
+      "username": "u",
+      "password": ""
+     },
+     "apiKey": {
+      "name": "X-API-Key",
+      "value": "",
+      "location": "header"
+     }
+    }
+   }
+  ],
+  "result": true
+ },
+ {
+  "args": [
+   {
+    "type": "apiKey",
+    "settings": {
+     "none": {},
+     "bearer": {
+      "token": ""
+     },
+     "basic": {
+      "username": "",
+      "password": ""
+     },
+     "apiKey": {
+      "name": "k",
+      "value": "",
+      "location": "header"
+     }
+    }
+   }
+  ],
+  "result": false
+ }
+]

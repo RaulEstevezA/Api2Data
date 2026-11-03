@@ -1,0 +1,20 @@
+[
+ {
+  "args": [
+   "  curl https://x"
+  ],
+  "result": true
+ },
+ {
+  "args": [
+   "curling"
+  ],
+  "result": false
+ },
+ {
+  "args": [
+   "CURL.exe -X GET x"
+  ],
+  "result": true
+ }
+]

@@ -1,0 +1,179 @@
+[
+ {
+  "args": [
+   {
+    "status": 200,
+    "statusText": "",
+    "url": "https://api.example.com/users/1",
+    "redirected": false,
+    "headers": [
+     [
+      "content-type",
+      "application/json; charset=utf-8"
+     ]
+    ],
+    "body": "{\"id\":1}",
+    "durationMs": 42,
+    "origin": "sent"
+   }
+  ],
+  "result": {
+   "status": 200,
+   "reason": "OK",
+   "statusClass": "success",
+   "url": "https://api.example.com/users/1",
+   "redirected": false,
+   "headers": [
+    [
+     "content-type",
+     "application/json; charset=utf-8"
+    ]
+   ],
+   "contentType": {
+    "mediaType": "application/json",
+    "charset": "utf-8"
+   },
+   "size": 8,
+   "durationMs": 42,
+   "origin": "sent",
+   "body": {
+    "kind": "text",
+    "view": {
+     "kind": "json",
+     "language": "json",
+     "raw": "{\"id\":1}",
+     "pretty": "{\n  \"id\": 1\n}"
+    }
+   },
+   "raw": "HTTP 200 OK\ncontent-type: application/json; charset=utf-8\n\n{\"id\":1}"
+  }
+ },
+ {
+  "args": [
+   {
+    "status": 204,
+    "statusText": "",
+    "url": "https://a.example.com",
+    "redirected": false,
+    "headers": [],
+    "body": "",
+    "durationMs": 3,
+    "origin": "sent"
+   }
+  ],
+  "result": {
+   "status": 204,
+   "reason": "No Content",
+   "statusClass": "success",
+   "url": "https://a.example.com",
+   "redirected": false,
+   "headers": [],
+   "contentType": null,
+   "size": 0,
+   "durationMs": 3,
+   "origin": "sent",
+   "body": {
+    "kind": "empty"
+   },
+   "raw": "HTTP 204 No Content\n\n"
+  }
+ },
+ {
+  "args": [
+   {
+    "status": 404,
+    "statusText": "Not Found",
+    "url": "https://a.example.com/b",
+    "redirected": true,
+    "headers": [
+     [
+      "Content-Type",
+      "text/plain"
+     ]
+    ],
+    "body": "no\nsuch",
+    "durationMs": null,
+    "origin": "pasted"
+   }
+  ],
+  "result": {
+   "status": 404,
+   "reason": "Not Found",
+   "statusClass": "clientError",
+   "url": "https://a.example.com/b",
+   "redirected": true,
+   "headers": [
+    [
+     "Content-Type",
+     "text/plain"
+    ]
+   ],
+   "contentType": {
+    "mediaType": "text/plain",
+    "charset": null
+   },
+   "size": 7,
+   "durationMs": null,
+   "origin": "pasted",
+   "body": {
+    "kind": "text",
+    "view": {
+     "kind": "text",
+     "language": null,
+     "raw": "no\nsuch",
+     "pretty": "no\nsuch"
+    }
+   },
+   "raw": "HTTP 404 Not Found\nContent-Type: text/plain\n\nno\nsuch"
+  }
+ },
+ {
+  "args": [
+   {
+    "status": 200,
+    "statusText": "",
+    "url": "https://a.example.com",
+    "redirected": false,
+    "headers": [
+     [
+      "content-type",
+      "application/xml"
+     ]
+    ],
+    "body": "<a><b>Ñ</b></a>",
+    "durationMs": 1,
+    "origin": "sent"
+   }
+  ],
+  "result": {
+   "status": 200,
+   "reason": "OK",
+   "statusClass": "success",
+   "url": "https://a.example.com",
+   "redirected": false,
+   "headers": [
+    [
+     "content-type",
+     "application/xml"
+    ]
+   ],
+   "contentType": {
+    "mediaType": "application/xml",
+    "charset": null
+   },
+   "size": 16,
+   "durationMs": 1,
+   "origin": "sent",
+   "body": {
+    "kind": "text",
+    "view": {
+     "kind": "xml",
+     "language": "xml",
+     "raw": "<a><b>Ñ</b></a>",
+     "pretty": "<a>\n  <b>Ñ</b>\n</a>"
+    }
+   },
+   "raw": "HTTP 200 OK\ncontent-type: application/xml\n\n<a><b>Ñ</b></a>"
+  }
+ }
+]

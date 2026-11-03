@@ -1,0 +1,52 @@
+[
+ {
+  "args": [
+   "https://a.example.com/x?q=1&b#top"
+  ],
+  "result": {
+   "base": "https://a.example.com/x",
+   "query": "q=1&b",
+   "hash": "#top"
+  }
+ },
+ {
+  "args": [
+   "https://a.example.com/x"
+  ],
+  "result": {
+   "base": "https://a.example.com/x",
+   "query": null,
+   "hash": ""
+  }
+ },
+ {
+  "args": [
+   "https://a.example.com/?"
+  ],
+  "result": {
+   "base": "https://a.example.com/",
+   "query": "",
+   "hash": ""
+  }
+ },
+ {
+  "args": [
+   "#only"
+  ],
+  "result": {
+   "base": "",
+   "query": null,
+   "hash": "#only"
+  }
+ },
+ {
+  "args": [
+   ""
+  ],
+  "result": {
+   "base": "",
+   "query": null,
+   "hash": ""
+  }
+ }
+]

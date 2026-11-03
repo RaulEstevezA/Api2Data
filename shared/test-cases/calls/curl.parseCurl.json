@@ -1,0 +1,396 @@
+[
+ {
+  "args": [
+   "curl 'https://api.example.com/v1/users?page=2' \\\n  -H 'accept: application/json' \\\n  -H 'authorization: Bearer abc.def' \\\n  -H 'content-type: application/json' \\\n  --data-raw '{\"name\":\"Raúl Estévez\",\"active\":true}' \\\n  --compressed"
+  ],
+  "result": {
+   "ok": true,
+   "draft": {
+    "method": "POST",
+    "url": "https://api.example.com/v1/users?page=2",
+    "params": [],
+    "headers": [
+     {
+      "id": "id-1",
+      "key": "accept",
+      "value": "application/json",
+      "enabled": true
+     }
+    ],
+    "auth": {
+     "type": "bearer",
+     "settings": {
+      "none": {},
+      "bearer": {
+       "token": "abc.def"
+      },
+      "basic": {
+       "username": "",
+       "password": ""
+      },
+      "apiKey": {
+       "name": "X-API-Key",
+       "value": "",
+       "location": "header"
+      }
+     }
+    },
+    "body": {
+     "mode": "json",
+     "text": {
+      "json": "{\"name\":\"Raúl Estévez\",\"active\":true}",
+      "text": "",
+      "xml": ""
+     },
+     "form": []
+    }
+   },
+   "notices": [
+    {
+     "code": "ignored",
+     "options": [
+      "--compressed"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "args": [
+   "curl -sSL -XPUT -u raul:pa:ss https://a.example.com/x -d 'name=Ra%C3%BAl+E&x=1'"
+  ],
+  "result": {
+   "ok": true,
+   "draft": {
+    "method": "PUT",
+    "url": "https://a.example.com/x",
+    "params": [],
+    "headers": [],
+    "auth": {
+     "type": "basic",
+     "settings": {
+      "none": {},
+      "bearer": {
+       "token": ""
+      },
+      "basic": {
+       "username": "raul",
+       "password": "pa:ss"
+      },
+      "apiKey": {
+       "name": "X-API-Key",
+       "value": "",
+       "location": "header"
+      }
+     }
+    },
+    "body": {
+     "mode": "form",
+     "text": {
+      "json": "",
+      "text": "",
+      "xml": ""
+     },
+     "form": [
+      {
+       "id": "id-1",
+       "key": "name",
+       "value": "Raúl E",
+       "enabled": true
+      },
+      {
+       "id": "id-2",
+       "key": "x",
+       "value": "1",
+       "enabled": true
+      }
+     ]
+    }
+   },
+   "notices": [
+    {
+     "code": "ignored",
+     "options": [
+      "-s",
+      "-S",
+      "-L"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "args": [
+   "curl -G https://a.example.com/search -d q=red --data-urlencode 'tag=a b'"
+  ],
+  "result": {
+   "ok": true,
+   "draft": {
+    "method": "GET",
+    "url": "https://a.example.com/search?q=red&tag=a%20b",
+    "params": [],
+    "headers": [],
+    "auth": {
+     "type": "none",
+     "settings": {
+      "none": {},
+      "bearer": {
+       "token": ""
+      },
+      "basic": {
+       "username": "",
+       "password": ""
+      },
+      "apiKey": {
+       "name": "X-API-Key",
+       "value": "",
+       "location": "header"
+      }
+     }
+    },
+    "body": {
+     "mode": "none",
+     "text": {
+      "json": "",
+      "text": "",
+      "xml": ""
+     },
+     "form": []
+    }
+   },
+   "notices": []
+  }
+ },
+ {
+  "args": [
+   "curl -I https://a.example.com"
+  ],
+  "result": {
+   "ok": true,
+   "draft": {
+    "method": "HEAD",
+    "url": "https://a.example.com",
+    "params": [],
+    "headers": [],
+    "auth": {
+     "type": "none",
+     "settings": {
+      "none": {},
+      "bearer": {
+       "token": ""
+      },
+      "basic": {
+       "username": "",
+       "password": ""
+      },
+      "apiKey": {
+       "name": "X-API-Key",
+       "value": "",
+       "location": "header"
+      }
+     }
+    },
+    "body": {
+     "mode": "none",
+     "text": {
+      "json": "",
+      "text": "",
+      "xml": ""
+     },
+     "form": []
+    }
+   },
+   "notices": []
+  }
+ },
+ {
+  "args": [
+   "curl https://a.example.com -d @body.json -F 'file=@a.png' -X FETCH"
+  ],
+  "result": {
+   "ok": true,
+   "draft": {
+    "method": "GET",
+    "url": "https://a.example.com",
+    "params": [],
+    "headers": [],
+    "auth": {
+     "type": "none",
+     "settings": {
+      "none": {},
+      "bearer": {
+       "token": ""
+      },
+      "basic": {
+       "username": "",
+       "password": ""
+      },
+      "apiKey": {
+       "name": "X-API-Key",
+       "value": "",
+       "location": "header"
+      }
+     }
+    },
+    "body": {
+     "mode": "none",
+     "text": {
+      "json": "",
+      "text": "",
+      "xml": ""
+     },
+     "form": []
+    }
+   },
+   "notices": [
+    {
+     "code": "dataFile",
+     "option": "-d"
+    },
+    {
+     "code": "multipart"
+    },
+    {
+     "code": "unknownMethod",
+     "method": "FETCH"
+    }
+   ]
+  }
+ },
+ {
+  "args": [
+   "curl -H \"a: b\""
+  ],
+  "result": {
+   "ok": false,
+   "problem": "noUrl"
+  }
+ },
+ {
+  "args": [
+   "https://a.example.com"
+  ],
+  "result": {
+   "ok": false,
+   "problem": "notCurl"
+  }
+ },
+ {
+  "args": [
+   "curl https://a.example.com -H 'Content-Type: application/vnd.api+json' -d '{}'"
+  ],
+  "result": {
+   "ok": true,
+   "draft": {
+    "method": "POST",
+    "url": "https://a.example.com",
+    "params": [],
+    "headers": [
+     {
+      "id": "id-1",
+      "key": "Content-Type",
+      "value": "application/vnd.api+json",
+      "enabled": true
+     }
+    ],
+    "auth": {
+     "type": "none",
+     "settings": {
+      "none": {},
+      "bearer": {
+       "token": ""
+      },
+      "basic": {
+       "username": "",
+       "password": ""
+      },
+      "apiKey": {
+       "name": "X-API-Key",
+       "value": "",
+       "location": "header"
+      }
+     }
+    },
+    "body": {
+     "mode": "json",
+     "text": {
+      "json": "{}",
+      "text": "",
+      "xml": ""
+     },
+     "form": []
+    }
+   },
+   "notices": []
+  }
+ },
+ {
+  "args": [
+   "curl --json '{\"a\":1}' https://a.example.com -A agent -b 'c=1' -o out.txt --max-time 5"
+  ],
+  "result": {
+   "ok": true,
+   "draft": {
+    "method": "POST",
+    "url": "https://a.example.com",
+    "params": [],
+    "headers": [
+     {
+      "id": "id-1",
+      "key": "Accept",
+      "value": "application/json",
+      "enabled": true
+     },
+     {
+      "id": "id-2",
+      "key": "User-Agent",
+      "value": "agent",
+      "enabled": true
+     },
+     {
+      "id": "id-3",
+      "key": "Cookie",
+      "value": "c=1",
+      "enabled": true
+     }
+    ],
+    "auth": {
+     "type": "none",
+     "settings": {
+      "none": {},
+      "bearer": {
+       "token": ""
+      },
+      "basic": {
+       "username": "",
+       "password": ""
+      },
+      "apiKey": {
+       "name": "X-API-Key",
+       "value": "",
+       "location": "header"
+      }
+     }
+    },
+    "body": {
+     "mode": "json",
+     "text": {
+      "json": "{\"a\":1}",
+      "text": "",
+      "xml": ""
+     },
+     "form": []
+    }
+   },
+   "notices": [
+    {
+     "code": "ignored",
+     "options": [
+      "-o",
+      "--max-time"
+     ]
+    }
+   ]
+  }
+ }
+]

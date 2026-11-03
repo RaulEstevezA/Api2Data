@@ -1,0 +1,32 @@
+[
+ {
+  "args": [
+   "<?xml version=\"1.0\"?><user id=\"1\"><name>Raúl Estévez</name><tags><tag/><empty></empty></tags></user>"
+  ],
+  "result": "<?xml version=\"1.0\"?>\n<user id=\"1\">\n  <name>Raúl Estévez</name>\n  <tags>\n    <tag/>\n    <empty></empty>\n  </tags>\n</user>"
+ },
+ {
+  "args": [
+   "<a><b></a>"
+  ],
+  "result": null
+ },
+ {
+  "args": [
+   "<!-- c --><a><![CDATA[x<y]]></a>"
+  ],
+  "result": "<!-- c -->\n<a>\n  <![CDATA[x<y]]>\n</a>"
+ },
+ {
+  "args": [
+   "  <root>\n  text  <b>1</b>\n</root>  "
+  ],
+  "result": "<root>\n  text\n  <b>1</b>\n</root>"
+ },
+ {
+  "args": [
+   ""
+  ],
+  "result": ""
+ }
+]

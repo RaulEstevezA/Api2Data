@@ -1,0 +1,232 @@
+[
+ {
+  "args": [
+   {
+    "method": "GET",
+    "url": "https://user:pass@api.example.com/items?page=2&api_key=123#top",
+    "params": [
+     {
+      "id": "1",
+      "key": "page",
+      "value": "2",
+      "enabled": true
+     },
+     {
+      "id": "2",
+      "key": "api_key",
+      "value": "123",
+      "enabled": true
+     },
+     {
+      "id": "3",
+      "key": "token",
+      "value": "off",
+      "enabled": false
+     }
+    ],
+    "headers": [
+     {
+      "id": "4",
+      "key": "Accept",
+      "value": "application/json",
+      "enabled": true
+     },
+     {
+      "id": "5",
+      "key": "Authorization",
+      "value": "Bearer abc",
+      "enabled": true
+     },
+     {
+      "id": "6",
+      "key": "X-Session-Id",
+      "value": "s1",
+      "enabled": true
+     }
+    ],
+    "auth": {
+     "type": "basic",
+     "settings": {
+      "none": {},
+      "bearer": {
+       "token": "abc"
+      },
+      "basic": {
+       "username": "raul",
+       "password": "secret"
+      },
+      "apiKey": {
+       "name": "X-API-Key",
+       "value": "k",
+       "location": "header"
+      }
+     }
+    },
+    "body": {
+     "mode": "none",
+     "text": {
+      "json": "",
+      "text": "",
+      "xml": ""
+     },
+     "form": []
+    }
+   }
+  ],
+  "result": {
+   "method": "GET",
+   "url": "https://api.example.com/items?page=2&api_key=#top",
+   "params": [
+    {
+     "id": "1",
+     "key": "page",
+     "value": "2",
+     "enabled": true
+    },
+    {
+     "id": "2",
+     "key": "api_key",
+     "value": "",
+     "enabled": true
+    },
+    {
+     "id": "3",
+     "key": "token",
+     "value": "",
+     "enabled": false
+    }
+   ],
+   "headers": [
+    {
+     "id": "4",
+     "key": "Accept",
+     "value": "application/json",
+     "enabled": true
+    },
+    {
+     "id": "5",
+     "key": "Authorization",
+     "value": "",
+     "enabled": true
+    },
+    {
+     "id": "6",
+     "key": "X-Session-Id",
+     "value": "",
+     "enabled": true
+    }
+   ],
+   "auth": {
+    "type": "basic",
+    "settings": {
+     "none": {},
+     "bearer": {
+      "token": ""
+     },
+     "basic": {
+      "username": "raul",
+      "password": ""
+     },
+     "apiKey": {
+      "name": "X-API-Key",
+      "value": "",
+      "location": "header"
+     }
+    }
+   },
+   "body": {
+    "mode": "none",
+    "text": {
+     "json": "",
+     "text": "",
+     "xml": ""
+    },
+    "form": []
+   }
+  }
+ },
+ {
+  "args": [
+   {
+    "method": "GET",
+    "url": "https://api.example.com/users",
+    "params": [],
+    "headers": [
+     {
+      "id": "1",
+      "key": "Accept",
+      "value": "text/xml",
+      "enabled": true
+     }
+    ],
+    "auth": {
+     "type": "none",
+     "settings": {
+      "none": {},
+      "bearer": {
+       "token": ""
+      },
+      "basic": {
+       "username": "",
+       "password": ""
+      },
+      "apiKey": {
+       "name": "X-API-Key",
+       "value": "",
+       "location": "header"
+      }
+     }
+    },
+    "body": {
+     "mode": "none",
+     "text": {
+      "json": "",
+      "text": "",
+      "xml": ""
+     },
+     "form": []
+    }
+   }
+  ],
+  "result": {
+   "method": "GET",
+   "url": "https://api.example.com/users",
+   "params": [],
+   "headers": [
+    {
+     "id": "1",
+     "key": "Accept",
+     "value": "text/xml",
+     "enabled": true
+    }
+   ],
+   "auth": {
+    "type": "none",
+    "settings": {
+     "none": {},
+     "bearer": {
+      "token": ""
+     },
+     "basic": {
+      "username": "",
+      "password": ""
+     },
+     "apiKey": {
+      "name": "X-API-Key",
+      "value": "",
+      "location": "header"
+     }
+    }
+   },
+   "body": {
+    "mode": "none",
+    "text": {
+     "json": "",
+     "text": "",
+     "xml": ""
+    },
+    "form": []
+   }
+  }
+ }
+]

@@ -1,0 +1,57 @@
+[
+ {
+  "args": [
+   "q=hello%20world&flag&&a=b=c"
+  ],
+  "result": [
+   {
+    "key": "q",
+    "value": "hello%20world"
+   },
+   {
+    "key": "flag",
+    "value": ""
+   },
+   {
+    "key": "a",
+    "value": "b=c"
+   }
+  ]
+ },
+ {
+  "args": [
+   ""
+  ],
+  "result": []
+ },
+ {
+  "args": [
+   "=v&k="
+  ],
+  "result": [
+   {
+    "key": "",
+    "value": "v"
+   },
+   {
+    "key": "k",
+    "value": ""
+   }
+  ]
+ },
+ {
+  "args": [
+   "ñ=á&emoji=😀"
+  ],
+  "result": [
+   {
+    "key": "ñ",
+    "value": "á"
+   },
+   {
+    "key": "emoji",
+    "value": "😀"
+   }
+  ]
+ }
+]

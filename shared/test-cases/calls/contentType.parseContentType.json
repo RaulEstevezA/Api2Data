@@ -1,0 +1,41 @@
+[
+ {
+  "args": [
+   "Application/JSON; charset=\"ISO-8859-1\""
+  ],
+  "result": {
+   "mediaType": "application/json",
+   "charset": "ISO-8859-1"
+  }
+ },
+ {
+  "args": [
+   ""
+  ],
+  "result": null
+ },
+ {
+  "args": [
+   null
+  ],
+  "result": null
+ },
+ {
+  "args": [
+   "text/html;charset=utf-8;q=1"
+  ],
+  "result": {
+   "mediaType": "text/html",
+   "charset": "utf-8"
+  }
+ },
+ {
+  "args": [
+   "application/xml; charset="
+  ],
+  "result": {
+   "mediaType": "application/xml",
+   "charset": null
+  }
+ }
+]

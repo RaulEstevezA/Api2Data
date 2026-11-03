@@ -1,0 +1,107 @@
+[
+ {
+  "args": [
+   "  "
+  ],
+  "result": {
+   "ok": false,
+   "problem": "empty"
+  }
+ },
+ {
+  "args": [
+   "api.example.com/users"
+  ],
+  "result": {
+   "ok": true,
+   "url": "https://api.example.com/users",
+   "schemeAdded": true
+  }
+ },
+ {
+  "args": [
+   "localhost:3000/api"
+  ],
+  "result": {
+   "ok": true,
+   "url": "https://localhost:3000/api",
+   "schemeAdded": true
+  }
+ },
+ {
+  "args": [
+   "http://localhost:3000/api#x"
+  ],
+  "result": {
+   "ok": true,
+   "url": "http://localhost:3000/api",
+   "schemeAdded": false
+  }
+ },
+ {
+  "args": [
+   "ftp://files.example.com"
+  ],
+  "result": {
+   "ok": false,
+   "problem": "unsupportedScheme"
+  }
+ },
+ {
+  "args": [
+   "https://exa mple.com"
+  ],
+  "result": {
+   "ok": false,
+   "problem": "invalid"
+  }
+ },
+ {
+  "args": [
+   "//cdn.example.com/a"
+  ],
+  "result": {
+   "ok": true,
+   "url": "https://cdn.example.com/a",
+   "schemeAdded": true
+  }
+ },
+ {
+  "args": [
+   "HTTPS://API.EXAMPLE.COM/A"
+  ],
+  "result": {
+   "ok": true,
+   "url": "HTTPS://API.EXAMPLE.COM/A",
+   "schemeAdded": false
+  }
+ },
+ {
+  "args": [
+   "http://"
+  ],
+  "result": {
+   "ok": false,
+   "problem": "invalid"
+  }
+ },
+ {
+  "args": [
+   "https://例え.jp/パス"
+  ],
+  "result": {
+   "ok": true,
+   "url": "https://例え.jp/パス",
+   "schemeAdded": false
+  }
+ },
+ {
+  "args": [
+   "mailto:a@example.com"
+  ],
+  "result": {
+   "ok": false,
+   "problem": "unsupportedScheme"
+  }
+ }
+]
