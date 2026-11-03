@@ -46,7 +46,7 @@ type WorkspaceTab = 'request' | 'response'
 export default function App() {
   const { t } = useI18n()
   const [draft, dispatch] = useReducer(draftReducer, undefined, emptyDraft)
-  const { state, send, cancel } = useSender(transport)
+  const { state, send, cancel, reset } = useSender(transport)
   const history = useHistory(historyStore)
   // The request as it was when sent, recorded in the history once its result arrives
   const sent = useRef<{ draft: RequestDraft; recorded: boolean } | null>(null)
@@ -96,6 +96,9 @@ export default function App() {
   /** Replaces the request being edited: an example, a history entry, an opened file or a pasted cURL command. */
   function load(next: RequestDraft, nextStatus: Status | null = null) {
     dispatch({ type: 'load', draft: next })
+    // The response shown belonged to the previous request
+    reset()
+    sent.current = null
     setAttempted(false)
     setStatus(nextStatus)
     setTab('request')

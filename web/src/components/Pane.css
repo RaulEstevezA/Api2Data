@@ -15,7 +15,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  min-height: 60px;
+  /* Room for a row of buttons, so panes side by side keep their tabs aligned */
+  min-height: 64px;
   padding: 12px 16px;
   border-bottom: 1px solid var(--border);
 }

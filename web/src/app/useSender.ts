@@ -16,6 +16,14 @@ export function useSender(transport: HttpTransport) {
 
   const cancel = useCallback(() => controller.current?.abort(), [])
 
+  /** Forgets the last response (another request was loaded) and cancels one in flight. */
+  const reset = useCallback(() => {
+    const current = controller.current
+    controller.current = null
+    current?.abort()
+    setState({ status: 'idle' })
+  }, [])
+
   const send = useCallback(
     async (request: PreparedRequest) => {
       controller.current?.abort()
@@ -37,5 +45,5 @@ export function useSender(transport: HttpTransport) {
 
   useEffect(() => () => controller.current?.abort(), [])
 
-  return { state, send, cancel }
+  return { state, send, cancel, reset }
 }
