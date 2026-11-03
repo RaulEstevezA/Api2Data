@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "api2data"
+version = "0.1.0"
+description = "Desktop tool to send HTTP requests to an API and inspect the response, without the browser's CORS limits."
+readme = "README_en.md"
+license = "MIT"
+authors = [{ name = "Raul Estevez" }]
+requires-python = ">=3.11"
+# Requests are sent with the standard library (urllib): no other dependency
+dependencies = ["PySide6>=6.10"]
+
+[project.optional-dependencies]
+dev = ["pytest>=9.1", "ruff>=0.17"]
+# Packaging the app (packaging/api2data.spec); Pillow only regenerates the icons
+build = ["pyinstaller>=6.22", "pillow>=11.0"]
+
+[project.scripts]
+api2data = "api2data.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["api2data*"]
+
+[tool.setuptools.package-data]
+api2data = ["assets/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
