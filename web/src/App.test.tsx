@@ -25,7 +25,7 @@ beforeEach(() => {
   // CodeMirror measures the layout, which jsdom does not do
   Range.prototype.getClientRects = () => ({ length: 0, item: () => null, [Symbol.iterator]: [][Symbol.iterator] }) as unknown as DOMRectList
   Range.prototype.getBoundingClientRect = () => new DOMRect()
-  localStorage.setItem('api2data.language', 'en')
+  localStorage.setItem('lang', 'en')
 })
 
 afterEach(() => {
