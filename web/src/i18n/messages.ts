@@ -60,6 +60,7 @@ const en = {
   allTools: 'All tools',
   api2classNote: 'Got a JSON response? Turn it into typed models with Api2Class.',
   api2classLink: 'Open Api2Class',
+  api2classHandoffError: 'The response could not be passed to Api2Class because browser storage is unavailable.',
   workspaceTabs: 'Workspace',
 
   // Request bar
@@ -360,6 +361,7 @@ const es: Messages = {
   allTools: 'Todas las herramientas',
   api2classNote: '¿Tienes una respuesta JSON? Conviértela en modelos tipados con Api2Class.',
   api2classLink: 'Abrir Api2Class',
+  api2classHandoffError: 'No se ha podido pasar la respuesta a Api2Class porque el almacenamiento del navegador no está disponible.',
   workspaceTabs: 'Área de trabajo',
 
   requestBarLabel: 'Petición',

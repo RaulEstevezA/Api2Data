@@ -31,6 +31,8 @@ beforeEach(() => {
 afterEach(() => {
   cleanup()
   vi.unstubAllGlobals()
+  Reflect.deleteProperty(document, 'startViewTransition')
+  Reflect.deleteProperty(window, 'matchMedia')
 })
 
 function renderApp() {
@@ -63,6 +65,8 @@ describe('App', () => {
     // The editor gets its text in an effect after the summary is shown
     await waitFor(() => expect(document.querySelector('.cm-content')?.textContent).toContain('"name": "Api2Class"'))
 
+    expect(screen.getByRole('button', { name: 'Open Api2Class' })).toBeTruthy()
+
     fireEvent.click(screen.getByRole('button', { name: 'Search' }))
     expect(document.querySelector('.cm-search')).not.toBeNull()
   })
@@ -74,6 +78,24 @@ describe('App', () => {
 
     fireEvent.change(screen.getByRole('textbox', { name: 'Key of row 2' }), { target: { value: 'size' } })
     expect((screen.getByRole('textbox', { name: 'URL' }) as HTMLInputElement).value).toBe('https://api.example.com/items?page=2&size=')
+  })
+
+  it('uses the shared fade when changing language', () => {
+    const startViewTransition = vi.fn((update: () => void) => {
+      update()
+      return { finished: Promise.resolve() }
+    })
+    Object.defineProperty(document, 'startViewTransition', { value: startViewTransition, configurable: true })
+    Object.defineProperty(window, 'matchMedia', {
+      value: () => ({ matches: false }),
+      configurable: true,
+    })
+    renderApp()
+
+    fireEvent.click(screen.getByRole('button', { name: 'ES' }))
+
+    expect(startViewTransition).toHaveBeenCalledOnce()
+    expect(screen.getByRole('button', { name: 'Enviar' })).toBeTruthy()
   })
 
   it('explains a request the browser blocked', async () => {

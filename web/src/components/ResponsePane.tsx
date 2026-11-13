@@ -2,6 +2,7 @@ import { openSearchPanel } from '@codemirror/search'
 import type { EditorView } from '@codemirror/view'
 import { useState } from 'react'
 import type { SendState } from '../app/useSender.ts'
+import { createJsonHandoff, openInApi2Class } from '../core/handoff/api2class.ts'
 import type { HttpResponse } from '../core/http/types.ts'
 import type { ProcessedResponse } from '../core/response/process.ts'
 import { useCopyFeedback } from '../hooks/useCopyFeedback.ts'
@@ -65,6 +66,19 @@ export function ResponsePane({ state, onPaste }: { state: SendState; onPaste: (r
   const response = state.status === 'done' ? state.response : null
   // The editor shown (body or raw), to open its search panel
   const [editor, setEditor] = useState<EditorView | null>(null)
+  const [handoffError, setHandoffError] = useState(false)
+
+  const jsonHandoff =
+    state.status === 'done' && response?.body.kind === 'text' && response.body.view.kind === 'json' && !response.body.view.invalidJson
+      ? createJsonHandoff(response.body.view.raw, state.request.method, state.request.url)
+      : null
+
+  function sendToApi2Class() {
+    if (!jsonHandoff) return
+    setHandoffError(false)
+    const opened = openInApi2Class(jsonHandoff, window.sessionStorage, (url) => window.location.assign(url))
+    if (!opened) setHandoffError(true)
+  }
 
   const tabs = [
     { id: 'body' as const, label: t.responseTabs.body },
@@ -88,6 +102,11 @@ export function ResponsePane({ state, onPaste }: { state: SendState; onPaste: (r
           <div className="response-pane__actions">
             <span className="mono response-pane__file">{fileName(response)}</span>
             <div className="actions">
+              {jsonHandoff && (
+                <button type="button" className="button" onClick={sendToApi2Class}>
+                  {t.api2classLink}
+                </button>
+              )}
               <button
                 type="button"
                 className="button"
@@ -126,6 +145,7 @@ export function ResponsePane({ state, onPaste }: { state: SendState; onPaste: (r
           <p className="response-pane__message">{t.responseSending(state.request.method, state.request.url)}</p>
         )}
         {state.status === 'failed' && <RequestFailure failure={state.failure} request={state.request} onPaste={onPaste} />}
+        {handoffError && <p className="alert alert--error response-pane__alert">{t.api2classHandoffError}</p>}
         {response && (
           <div id="response-panel" className="response-pane__section" role="tabpanel" aria-labelledby={`response-tab-${section}`}>
             {section === 'body' && <ResponseBodyView response={response} onView={setEditor} />}
